@@ -1,7 +1,7 @@
 # ecommerce
 # This is a shopping application developed in React JS
 
-**Before run this application you have to install the reactjs**
+**Before run this application you have to install the NodeJS**
 
 **To run the application**
 
