@@ -1,6 +1,10 @@
 # ecommerce
 # This is a shopping application developed in React JS
-the app link is https://ecomm-store-22.web.app
+the app link is 
+
+**link:1** https://ecomm-store-22.web.app 
+
+**link:2** https://anishvermaishere.github.io/ecomm-live/
 
 **Before run this application you have to install the NodeJS**
 
