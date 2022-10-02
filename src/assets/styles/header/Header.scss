@@ -1,0 +1,42 @@
+
+
+ /* Nav Main */ 
+
+ .nav-main {
+    background-color: var(--darkgreen);
+    padding:0;
+    // height:40px;
+    .menu {
+      margin-bottom: 0 !important;
+        .menu-item {
+          padding:2px 4px;
+          margin:0.2rem 0.4rem;
+          display:inline-block;
+          font-size:0.9rem;
+          font-weight: 400;
+          .menu-item-link {
+              color:#fff;      
+              text-decoration: none; 
+              &:hover {
+                border-bottom:2px solid #fff; 
+              }
+          }
+        }
+        .expand-arrow {
+          color:#fff;
+          font-size: 1.4rem;
+          cursor: pointer;
+        }
+    }
+  }
+ 
+
+  @media all and (max-width:823px){
+    .expand-arrow {
+
+    }
+  }
+
+
+
+ 

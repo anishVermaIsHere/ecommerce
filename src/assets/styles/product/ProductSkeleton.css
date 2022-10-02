@@ -1,0 +1,36 @@
+
+.card-img-skeleton {
+  height: 180px;
+  width:150px;
+  margin: auto;
+  background-image: linear-gradient(to right,rgba(231, 227, 227, 0.74),rgba(214, 207, 207, 0.74));
+}
+
+.card-text-skeleton {
+  height:10px;
+  width:100%;
+  background-image: linear-gradient(to right,rgba(231, 227, 227, 0.74),rgba(214, 207, 207, 0.74));
+}
+
+.btn-skeleton{
+  background-image: linear-gradient(to right,rgba(231, 227, 227, 0.74),rgba(214, 207, 207, 0.74));
+  padding: 0 0.8rem;
+  height: 32px;
+  width:100%;
+}
+
+
+
+.skeleton {
+  animation:skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-image: linear-gradient(to right,rgba(231, 227, 227, 0.74),rgba(214, 207, 207, 0.74));
+  }
+  100% {
+    background-image: linear-gradient(to right,rgba(231, 227, 227, 0.74),rgba(214, 207, 207, 0.74));
+  }
+
+}

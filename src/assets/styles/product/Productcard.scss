@@ -1,0 +1,123 @@
+
+.card {
+    align-self:flex-start;
+    @media all and (max-width:575px) {
+        max-width:400px !important;
+        margin:auto;
+        flex-direction:row;
+    }
+    .img-container {
+        position:relative;
+        height:180px;
+        width:150px;
+        margin:auto;
+        .card-img {
+            .product-image {
+                height:180px;
+                object-fit: contain;
+            }
+        }
+            
+    }
+    .card-body { 
+        width:100% !important;
+        @media all and (max-width:575px) {
+            margin-top:0 !important;
+        }
+        .card-title {
+            text-rendering: optimizeLegibility;
+            height:35px;
+            font-size:0.8rem;
+            line-height: 1.2rem;
+            overflow: hidden;
+            margin-bottom:0.3rem !important;
+            cursor:pointer;
+        }
+        .card-text {
+            font-size:0.8rem;
+        }
+        .rating-section {
+            margin:-0.8rem 0 1rem;
+            .prod-rating {
+                background-color:rgb(32, 32, 32);
+                color:#fff;
+                font-size: 0.8rem;
+                border:1px solid rgb(32, 32, 32);
+                border-radius: 50%;
+                padding:0.4rem 0.37rem;
+                width:25px;
+                height:25px;
+            }
+            .rating-star {
+                font-size:1rem;
+                color:#ffa41c;
+            }
+            .star {
+                font-size:1rem;
+                color:#ffa41c;
+            }
+        }
+        .card-action {
+            justify-content: space-evenly;
+            margin-bottom:0;
+            font-size:0.9rem;
+            .addtowish-ol,
+            .addtowish-fl,
+            .addcart {
+                    cursor: pointer;
+                }
+                .addtowish-ol {
+                    color:var(--navgreenlgt);
+                }
+                .addtowish-fl{
+                color:var(--navgreenlgt);
+                // font-size:1.8rem;
+                }
+            .card-btn {
+                border-radius: 0.3rem;
+                border:none;
+            }
+            .addtocart,.outofstock {
+                background-color: var(--navgreendrk);
+                color:#fff;
+                padding:0 0.4rem;
+                height:32px;
+                width:100px;
+            }
+            .removefromcart{
+                background-color: var(--danger);
+                color:#fff;
+                padding:0 0.4rem;
+                height:32px;
+                width:100px;
+            }
+            .outofstock {
+                background-color: rgb(233, 120, 14);
+            }
+        }
+    }
+}
+
+
+/* Styling for Product Mini card in the cart */
+
+.cart-btn {
+    height:35px;
+    .cartqty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        height:25px;
+        width:25px;
+        background-color:#ffa41c;
+        border-radius: 0.3rem;
+        border:none;
+        user-select: none;
+    }
+    .qty {
+        margin:0.1rem;
+        width:25px;
+        text-align: center;
+    }
+}

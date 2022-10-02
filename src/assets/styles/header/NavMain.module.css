@@ -1,0 +1,23 @@
+/* Nav Main */
+.navMain {
+    background-color: var(--fadelight);
+    padding: 0.5rem 0;
+    /* gap:1rem; */
+  }
+  .menu {
+    /* gap:1rem; */
+  }
+  .menuItem {
+    padding: 0.1rem 0.4rem;
+    margin:0.3rem 0.2rem -1rem;
+    font-weight: 400;
+    border: 1px solid var(--navgreenlgt);
+  }
+  
+  .menuItemLink {
+    color: rgb(78, 76, 76);
+    text-decoration: none;
+  }
+  
+
+  /*# sourceMappingURL=Header.css.map */
