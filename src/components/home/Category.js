@@ -11,23 +11,23 @@ const Category = () => {
                 <div className='start-shopping'>
                     <h2 className='shopping-text'>Start Shopping</h2>
                     <button className='shop-now'>
-                        <NavLink to='/products'>
+                        <NavLink to='/products/groceries'>
                         Shop now
                         </NavLink>
                     </button>
                 </div>
-                <h1 className="featured-products">Featured Products</h1>
-                
             </div>
+            <div className='heading-section'>
+            <h1 className="featured-products mb-5">Featured Products</h1>
             <div className="row justify-content-center category-container">
                 {
                     prodCategory.map((catg)=>{
                         return(
-                            <div className='catg-col'>
+                            <div className='catg-col' key={nanoid()}>
                             <NavLink to={catg.link}>
                                 <div className='prod-catg-cvr' id={nanoid()}>
                                     <div className='prod-catg-img-container'>
-                                        <img src={catg.image} alt={catg.name} />
+                                        <img src={catg.image} alt={catg.name} loading='lazy' />
                                     </div>
                                     <p className="prod-categ-title">{catg.name}</p>
                                 </div>
@@ -36,6 +36,8 @@ const Category = () => {
                         )
                     })
                 }
+            </div>
+                            
             </div>
         </>
     )

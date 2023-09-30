@@ -11,7 +11,7 @@ export default function Slider({title,data}) {
                 sliderData.map((ele,index)=>{
                     return(
                         <Carousel.Item key={index} interval={3000}>
-                            <img className="d-block w-100" src={ele.url} alt={title} />
+                            <img className="d-block w-100" src={ele.url} alt={title} loading='lazy'/>
                         </Carousel.Item>   
                     )
                 })

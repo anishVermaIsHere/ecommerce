@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import draw from '../../assets/styles/sidemenu/Drawer.module.css';
 import Accordion from '.././common/Accordion.js';
 import Socialfollow from '.././common/Socialfollow.js';
@@ -8,7 +8,7 @@ import {MdOutlineClose} from "react-icons/md";
 
 
 export default function Drawer(props) {
-    const hambgClose=()=> {
+    const drawerClose=()=> {
         props.state((state)=>{
            return false                 // or return !state
         })
@@ -18,12 +18,12 @@ export default function Drawer(props) {
         <div className={draw.drawerBackground}>
             <div className={draw.drawer}>
             <div className={draw.drawerClose}>
-                <MdOutlineClose className={draw.hamburgerMenuClose} onClick={hambgClose}/>
+                <MdOutlineClose className={draw.hamburgerMenuClose} onClick={drawerClose}/>
             </div>
             <div className={draw.accordion}>
                 <ul className={draw.accordionMenu}>
-                {sidebarMenu.map(({name,icon,link })=>{         
-                    return (<Accordion title={name} icon={icon} link={link} hambgClose={hambgClose}/>);
+                {sidebarMenu.map(({name,icon,link,children })=>{         
+                    return (<Accordion title={name} icon={icon} link={link} hambgClose={drawerClose} children={children}/>);
                 })}
                 </ul>
             </div>

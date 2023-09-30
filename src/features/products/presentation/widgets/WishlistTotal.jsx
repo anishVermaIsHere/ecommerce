@@ -7,11 +7,11 @@ const WishlistTotal = () => {
     return state.wishlistSlice.totalWishlist;
   })
   
-  return (
+  return wishCount!=0?
     <div className={navbar.badge}>
           <small className='d-flex-jc-center-ai-center'><b> {wishCount} </b></small>
     </div>
-  )
+  : ""
 }
 
 export default WishlistTotal

@@ -1,10 +1,9 @@
 .aside {
   border: 1px solid var(--fadegrey);
   border-radius: 0.5rem;
-  padding: 1rem 1.5rem;
-  margin: 1rem 1.5rem 1rem 0;
+  padding: 0.8rem;
   height: auto;
-  overflow: auto;
+  overflow-y: auto;
 }
 .aside::-webkit-scrollbar {
   width: 8px;
@@ -15,7 +14,6 @@
 }
 .aside::-webkit-scrollbar-thumb {
   border-radius: 5rem;
-  background-color: var(--fadegrey);
 }
 @media all and (max-width: 1196px) {
   .aside {
@@ -23,7 +21,7 @@
     padding: 0.5rem 0.8rem;
   }
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 992px) {
   .aside {
     background: #fff;
     border: none;
@@ -38,53 +36,48 @@
 .aside .aside_filter .filterIcon {
   font-size: 1.2rem;
 }
-.aside .aside_head {
+.aside .filter_toggle {
   display: none;
+  border-bottom: 1px solid var(--fadegrey);
+  font-size: 1rem;
+  padding: 0.1rem 0.5rem;
+  margin-bottom: 1rem;
+  float: right;
+  background-color: var(--dark);
+  cursor: pointer;
+  border-radius: 0.3rem;
+  color: #fff;
 }
-@media all and (max-width: 767px) {
-  .aside .aside_head {
+.aside .filter_toggle:hover {
+  background-color: #000;
+}
+.aside .filter_toggle .arrow {
+  font-size: 1.2rem;
+  margin-left: 0.3rem;
+}
+@media all and (max-width: 992px) {
+  .aside .filter_toggle {
     display: block;
-    border-bottom: 1px solid var(--fadegrey);
-    font-size: 1rem;
-    padding: 0.2rem 0.5rem;
-    margin-bottom: 1rem;
-    display: inline;
-    float: right;
-    background-color: var(--darkgrey);
-    cursor: pointer;
-    border-radius: 0.3rem;
-    color: #fff;
-  }
-  .aside .aside_head:hover {
-    background-color: #000;
-  }
-  .aside .aside_head .arrow {
-    font-size: 1.2rem;
-    margin-left: 0.3rem;
   }
 }
 @media all and (max-width: 467px) {
-  .aside .aside_head {
+  .aside .filter_toggle {
     font-size: 0.8rem;
   }
 }
 .aside .filter_item {
   /* Filter section item */
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .aside .filter_item {
     margin-top: 0.5rem;
   }
 }
-.aside .filter_item .filter_title {
-  font-weight: bolder;
-}
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .aside .filter_item .filter_title {
     display: inline;
     font-size: 0.9rem;
     padding: 0.2rem 0.3rem;
-    border-bottom: 3px solid var(--darkgrey);
   }
   .aside .filter_item .filter_title:hover {
     border-color: #000;
@@ -98,7 +91,6 @@
 }
 .aside .filter_item .aside_item {
   border: 1px solid var(--fadegrey);
-  background: #f9f9f9;
   color: black;
   margin: 1rem 0;
   padding: 0.3rem;
@@ -107,6 +99,12 @@
   font-size: 0.9rem;
   /* Price filter section */
   /* Rating filter section */
+}
+@media all and (max-width: 992px) {
+  .aside .filter_item .aside_item .type_filter_list {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 .aside .filter_item .aside_item .price_filter_label {
   font-size: 0.9rem;
@@ -126,8 +124,6 @@
   height: 100%;
   border-radius: 0.3rem;
   position: absolute;
-  left: 0%;
-  right: 0%;
   cursor: pointer;
   background: var(--navgreendrk);
 }
@@ -145,10 +141,10 @@
   -moz-appearance: none;
 }
 .aside .filter_item .aside_item .range_input input[type=range]::-webkit-slider-thumb {
-  height: 12px;
-  width: 12px;
+  height: 15px;
+  width: 15px;
   border-radius: 50%;
-  background-image: linear-gradient(var(--navgreendrk), var(--navgreenlgt));
+  background-color: var(--navgreendrk);
   pointer-events: auto;
   cursor: pointer;
   -webkit-appearance: none;
@@ -192,19 +188,25 @@
 }
 .aside .filter_item .aside_item ul .list_item {
   padding: 0.3rem;
-  cursor: auto;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .aside .filter_item .aside_item ul .list_item input[type=checkbox] {
   margin-right: 0.5rem;
-  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  accent-color: var(--navgreendrk);
 }
 .aside .filter_item .aside_item ul .list_item .star {
-  font-size: 1rem;
-  margin-left: 0.3rem;
+  font-size: 1.2rem;
+  margin-left: 0.1rem;
   color: #ffa41c;
 }
 .aside .filter_item .aside_item ul .list_item:not(:last-child) {
   border-bottom: 1px solid var(--fadegrey);
+}
+.aside .filter_item .aside_item ul .list_item label {
+  font-size: 0.9rem;
+  margin: 0;
 }/*# sourceMappingURL=FilterSection.module.css.map */

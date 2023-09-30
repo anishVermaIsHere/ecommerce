@@ -7,13 +7,14 @@ const CartTotal = () => {
       return state.cartSlice.cartVal
   })
 
-  return (
+  return cartCount!=0?
     <div className={navbar.badge}>
           <small className='d-flex-jc-center-ai-center'>
             <b> {cartCount} </b>
           </small>
     </div>
-  )
+    :
+    ""
 }
 
 export default CartTotal

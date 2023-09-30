@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import '../../App.css';
 import Socialfollow from '../common/Socialfollow';
 
@@ -19,7 +18,7 @@ const Footer = () => {
                             {/* Grid column */}
                             <div className="col-auto">
                                 <p className="pt-2">
-                                    <strong>Sign up for our newsletter</strong>
+                                    Sign up for our newsletter
                                 </p>
                             </div>
 
@@ -55,9 +54,9 @@ const Footer = () => {
             <div className="pt-2 d-flex-jc-center-ai-center" style={{background:'var(--darkgreen)', color:'#fff'}}>
                 <p className='copyright-text'>
                 © {year} 
-                <NavLink className="ml-2 mr-2" to="#">ecommapp.com</NavLink>
-                All rights reserved <br/>
-               Designed and Developed by Anish</p> 
+                 <span className='ml-2'>e-Store. </span>
+                All Rights Reserved <br/>
+               Designed and Developed by Anish Verma</p> 
             </div>
             {/*  Copyright  */}
         </footer>

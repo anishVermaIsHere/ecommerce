@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Nav} from './Nav.js';
 import NavMain from './NavMain.js';
 
-const Header = (props) => {  
+const Header = ({signOutUser}) => {  
   return (
     <header className='position-sticky w-100' style={{zIndex:'99', top:'0'}}>
-        <Nav user={props.user} signOutUser={props.signOutUser}/>
+        <Nav signOutUser={signOutUser}/>
         <NavMain />
     </header>
   )

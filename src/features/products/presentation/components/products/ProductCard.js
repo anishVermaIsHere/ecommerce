@@ -1,51 +1,80 @@
-import React,{useState} from 'react';
-import { BsCart2,BsHeart,BsHeartFill,BsStarFill,BsStar,BsStarHalf } from 'react-icons/bs';
+import React, {useEffect, useState} from 'react';
+import { BsHeart,BsHeartFill,BsStarFill,BsStar } from 'react-icons/bs';
 import { BiTrash } from 'react-icons/bi';
+import { BsCart2 } from 'react-icons/bs';
 import { useDispatch,useSelector } from 'react-redux';
 import { addCart,removeCart,addQtyandTotalPrice} from '../../../../../utils/services/reducer/cart/cart-slice';
 import { addWishlist,removeWish } from '../../../../../utils/services/reducer/wishlist/wishlist-slice';
 import '../../../../../assets/styles/product/Productcard.css';
+import { addSize } from '../../../../../utils/services/reducer/filter/filter-slice';
 
 
-const ProductCard = ({item}) => {
+const ProductCard = ({item, index}) => {
+    const dispatcher=useDispatch();
+    const sizeList=[]
+    const [selectedSize,setSelectedSize]=useState([]);
+    const addToWishlist=()=> {
+        setWishlist((wishlist)=>!wishlist)
+        dispatcher(addWishlist(item));
+    }
+    const removeWishlist=()=>{
+        setWishlist((wishlist)=>!wishlist)
+        dispatcher(removeWish(item));
+    }
+    const heartOutline=<BsHeart className='wishlist addtowish-ol' onClick={addToWishlist} title='Add to Wishlist'/>;
+    const heartFill=<BsHeartFill className='wishlist addtowish-fl' onClick={removeWishlist} title='Add to Wishlist'/>;
+    const [wishlist,setWishlist]=useState(heartOutline);
 
-const dispatcher=useDispatch();
+    const addToCart=(item)=>{
+        dispatcher(addCart(item));
+        dispatcher(addQtyandTotalPrice(item));
+    }
+    const removeFromCart=(item)=>{
+        dispatcher(removeCart(item));
+    }
+    const selectSize=(e,id)=>{
+       const selected= selectedSize.map(size=>size.value==e.target.value?{...size,selected:true}:{...size,selected:false});
+       setSelectedSize(selected);
+       dispatcher(addSize({size:e.target.value,index:id}))
+    }
 
-const addToWishlist=()=> {
-    setWishlist((wishlist)=>!wishlist)
-    dispatcher(addWishlist(item));
-}
-const removeWishlist=()=>{
-    setWishlist((wishlist)=>!wishlist)
-    dispatcher(removeWish(item));
-}
-const heartOutline=<BsHeart className='wishlist addtowish-ol' onClick={addToWishlist} title='Add to Wishlist'/>;
-const heartFill=<BsHeartFill className='wishlist addtowish-fl' onClick={removeWishlist} title='Add to Wishlist'/>;
-const [wishlist,setWishlist]=useState(heartOutline);
+    const cartProducts=useSelector(state=>state.cartSlice.products)
+    const wishlistProducts=useSelector(state=>state.wishlistSlice.products)
 
-const addToCart=(item)=>{
-    dispatcher(addCart(item));
-    dispatcher(addQtyandTotalPrice(item));
-}
-const removeFromCart=(item)=>{
-    dispatcher(removeCart(item));
-}
-
-const cartProducts=useSelector(state=>state.cartSlice.products)
-const wishlistProducts=useSelector(state=>state.wishlistSlice.products)
+    useEffect(()=>{
+        if(item.sizes){
+        let sizelist=[];
+            item.sizes.map((item,index)=>{
+                return sizeList.push({
+                    label:item,
+                    value:item,
+                    id:index,
+                    selected:index==0?true:false
+                });
+                });
+            setSelectedSize(sizeList);
+        }        
+        return ()=>{}
+    },[])
 
 
     return (
-        <div key={item.key} 
-        className="card col-lg-3 col-md-4 col-sm-4 border-light">
+        <div key={index} className="card col-lg-3 col-md-4 col-sm-6 border-light">
             <div className='img-container'>
                 <div className='card-img'>
-                    <img src={item.image} className="product-image" alt={item.title}/>
+                    <img src={item.images[0]} className="product-image" alt={item.title} loading='lazy'/>
                 </div>
             </div>
             <div className="card-body">
                 <p className="card-title" title={item.title}>{item.title}</p>
-                <p className="card-text">&#8377;{item.price}</p>
+                <p className="card-text font-weight-bold">
+                    <span className='mr-2'>&#8377;{item.price}</span>
+                    <del className='text-danger' style={{textDecoration:'line-through'}}>&#8377;{item.prevprice}</del>
+                    {item.sizes&&<select className='ml-3' onChange={(e)=>selectSize(e,item.id)}>
+                    {selectedSize.map((size,id)=><option value={size.value} key={size.id} selected={size.selected}>{size.label}</option>)}
+                    </select>}
+                </p>
+                
                <div className='rating-section d-flex-ai-center'>
                     <div className='prod-rating d-flex-jc-center-ai-center'>{item.rating.rate}</div> 
                     {[...Array(5)].map((_,i)=>{
@@ -53,16 +82,14 @@ const wishlistProducts=useSelector(state=>state.wishlistSlice.products)
                             <>
                             {
                             i+1<=Math.trunc(item.rating.rate) ?
-                                <BsStarFill className='star rating-star'/> 
+                                <BsStarFill className='star rating-star' key={i}/> 
                                 :
-                                <BsStar className='star'/>}
+                                <BsStar className='star' key={i}/>}
                             </>
                         )
                     })
                     }
                     
-
-
                     <span style={{fontSize:'0.7rem', marginLeft:'3px'}}>{`(${item.rating.count})`}</span>
                 </div>
                 <div className='card-action mt-auto d-flex-ai-center'>
@@ -73,11 +100,11 @@ const wishlistProducts=useSelector(state=>state.wishlistSlice.products)
                         :
                     cartProducts.some(x=>x.id===item.id)?
                         <button className='card-btn removefromcart' onClick={()=>removeFromCart(item)}>
-                            <BiTrash />
+                            Remove <BiTrash />
                         </button>
                         :
                         <button className='card-btn addtocart' onClick={()=>addToCart(item)}>
-                            Add to Cart 
+                            Add <BsCart2 />
                         </button>
                     }
                     {wishlistProducts.some(x=>x.id==item.id) ? heartFill : heartOutline}

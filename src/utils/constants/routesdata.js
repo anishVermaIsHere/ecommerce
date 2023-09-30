@@ -6,13 +6,13 @@ export const CONSTANTS={
     SIGNUP:'/signup',
     WISHLIST:'/wishlist',
     CHECKOUT:'/checkout',
-    GROCERIES:'/groceries',
-    PACKFOODS:'/packagedfoods',
-    BEVERAGES:'/beverages',
-    MEN:'/men',
-    WOMEN:'/women',
-    MOBILES:'/mobiles',
-    ELECTRONICS:'/electronics'
+    GROCERIES:'products/groceries',
+    PACKFOODS:'products/packaged foods',
+    BEVERAGES:'products/beverages',
+    MEN:'products/men',
+    WOMEN:'products/women',
+    MOBILES:'products/mobile',
+    ELECTRONICS:'products/electronics'
 }
 
 export const URL_PATH=[
@@ -44,11 +44,6 @@ export const URL_PATH=[
     },
     {
         id:6,
-        title:'Mobiles',
-        route:CONSTANTS.MOBILES
-    },
-    {
-        id:7,
         title:'Electronics',
         route:CONSTANTS.ELECTRONICS
     }

@@ -1,6 +1,8 @@
 {
-  "name": "demo",
-  "version": "0.1.0",
+  "name": "eStore",
+  "version": "2.0.0",
+  "author": "Anish Verma",
+  "github_link":"https://github.com/anishVermaIsHere/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",

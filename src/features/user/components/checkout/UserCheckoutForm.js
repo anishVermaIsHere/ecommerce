@@ -1,9 +1,7 @@
 import React,{useState} from 'react';
  import { Formik, Form, Field, ErrorMessage } from 'formik';
  import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
 import '../../../../assets/styles/user/Checkout.css';
-import { BsCheck,BsFillBagCheckFill} from 'react-icons/bs';
 
 
 const UserCheckoutForm = ({shopForm,states}) => {
@@ -94,7 +92,7 @@ const UserCheckoutForm = ({shopForm,states}) => {
                             <div className="checkout-step-wrapper  d-flex-ai-center">
                                 <div className='step-icon'>1</div>
                                 <div className='checkout-step'>
-                                    <p className='checkout-step-label'>Delivery Address</p>
+                                    <h4 className='checkout-step-label'>Delivery Address</h4>
                                     <div className="form-row">
                                         {/* <h5>Delivery Address</h5> */}
                                         <div className="form-group col-md-6">

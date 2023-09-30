@@ -12,6 +12,7 @@ nav {
 }
 .brand {
   color:var(--fadelight);
+  font-size: 1rem;
 }
 .logo {
   height:40px;
@@ -223,7 +224,7 @@ nav ul li a {
     left:50px;
   }
   .navmenu .navtoggle, 
-.navmenu .hambg {
+  .navmenu .hambg {
     display: block;
   }
   .navtoggle {
@@ -256,6 +257,7 @@ form {
 .productsearchbar {
     border-radius:5px;
     width:100%;
+    padding-top:5px;
   }
   .search {
     font-size:0.8rem;

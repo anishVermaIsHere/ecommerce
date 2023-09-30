@@ -29,7 +29,7 @@
 .checkout-container .customer-checkout-form form .checkout-step-wrapper .checkout-step .checkout-step-label {
   margin-bottom: 0;
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 600;
 }
 .checkout-container .customer-checkout-form form .checkout-step-wrapper .checkout-step .customer-phone-field #verifyPhone {
   margin-left: 0.8rem;
@@ -50,7 +50,6 @@
 .checkout-container .customer-checkout-form form .checkout-step-wrapper .checkout-step .form-group select {
   padding: 0.3rem !important;
   font-size: 0.8rem !important;
-  font-weight: 600;
 }
 .checkout-container .customer-checkout-form form .checkout-step-wrapper .checkout-step .form-row input[type=number]::-webkit-outer-spin-button,
 .checkout-container .customer-checkout-form form .checkout-step-wrapper .checkout-step .form-row input[type=number]::-webkit-inner-spin-button,
@@ -84,7 +83,6 @@
   font-weight: 600;
 }
 .checkout-container .checkout-cart-container .summary .summary-head .summary-text {
-  font-weight: 400;
   font-size: 0.9rem;
 }
 .checkout-container .checkout-cart-container .summary .summary-details {

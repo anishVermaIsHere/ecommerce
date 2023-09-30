@@ -1,28 +1,33 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import brd from '../../assets/styles/common/Brdcrb.module.css';
 import {nanoid} from 'nanoid';
 
-export default function Breadcrumbs(props) {
-  const {link}=props;
-  const pathName=link.pathname;
-  let linkArray=pathName.split('/');
-  linkArray=linkArray.slice(1);
+const Breadcrumbs=({link})=>{
+  const [navLink,setNavLink]=useState([]);
+
+  useEffect(()=>{
+    const path=link.pathname.split('/');
+   const updatedPath= path.map((p)=>p.replace('%20',' '));
+      // const string=substring.replace(/\w\S*/g, function(str){return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();});
+   setNavLink(updatedPath.slice(1));
+    return ()=>{}
+  },[link])
 
 
   return (
     <>
       <div className={`${brd.navigator} mb-3`} aria-label="breadcrumb">
         <ol className={`breadcrumb ${brd.brdcrmb}`}>
-          <li className={`breadcrumb-item ${brd.active}`} key='001'>
+          <li className={`breadcrumb-item ${brd.active}`}>
             <NavLink to="/">Home</NavLink>
           </li>
           {
-            linkArray.map(link=>{
+            navLink.map((link,index)=>{
               return(
-                linkArray[linkArray.length-1] == link? 
+                navLink[navLink.length-1] == link? 
                 <li className='breadcrumb-item' key={nanoid()}>
-                  <span style={{textTransform:'capitalize', fontSize:'0.8rem'}}>{link}</span>
+                  <span style={{textTransform:'capitalize', fontSize:'0.8rem',cursor:'default'}}>{link}</span>
                 </li>
               :
               <li className={`breadcrumb-item ${brd.active}`} key={nanoid()}>
@@ -33,10 +38,10 @@ export default function Breadcrumbs(props) {
               )
             }) 
           }
-          {/* <li className="breadcrumb-item" key='002'><NavLink to="/">Library</NavLink></li>
-          <li className="breadcrumb-item" key='003'><NavLink to="/" aria-current="page">Data</NavLink></li> */}
         </ol>
       </div>
     </>
   )
 }
+
+export default Breadcrumbs;

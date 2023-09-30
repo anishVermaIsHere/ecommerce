@@ -1,3 +1,4 @@
+import React from 'react';
 import { nanoid } from 'nanoid';
 import Pagination from 'react-bootstrap/Pagination';
 
@@ -11,12 +12,12 @@ function PaginationNav({
   let items = [];
   for (let number = 1; number <= Math.ceil(totalProducts/productsPerPage); number++) {
     items.push(
-            <Pagination.Item 
-            key={nanoid()} 
-            onClick={()=>paginate(number)} 
-            active={currentPage == number}>
-              {number}
-            </Pagination.Item>
+      <Pagination.Item 
+      key={nanoid()} 
+      onClick={()=>paginate(number)} 
+      active={currentPage == number}>
+        {number}
+      </Pagination.Item>
     );
   }
   return (

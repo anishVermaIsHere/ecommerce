@@ -1,21 +1,20 @@
 import React,{useState,useRef,useEffect} from 'react'
 import aside from '../../../../../assets/styles/sidemenu/FilterSection.module.css';
 import RangeSlider from '../../widgets/RangeSlider';
-import { getProducts } from '../../../../../utils/services/clientapis/api';
-import { renderProducts,renderCategProducts } from '../../../../../utils/services/reducer/filter/filter-slice';
+import { renderProducts } from '../../../../../utils/services/reducer/filter/filter-slice';
 import { useDispatch } from 'react-redux';
 
 
 
-export const FilterPrice = ({index,productType}) => {
-  const dispatcher=useDispatch();
+export const FilterPrice = ({handleProducts,category}) => {
   const [minValue,setMinValue]=useState(0);
   const [maxValue,setMaxValue]=useState(200000);
-    const priceDiff=1000;
-    const min=0;
-    const max=200000;
-    const step=100;
-    const progress=useRef(null);
+  const priceDiff=1000;
+  const min=0;
+  const max=200000;
+  const step=100;
+  const progress=useRef(null);
+  const dispatch=useDispatch();
 
     const handleMinVal=(event)=>{
         if(maxValue-minValue>=priceDiff&&maxValue<=max){          
@@ -44,17 +43,10 @@ export const FilterPrice = ({index,productType}) => {
         }
       }
 
-    const filterByPrice=()=>{      
-      const response=getProducts();
-      response.then(res=>{
-        let filterProducts=res.data.filter(item=>item.price>=minValue&&item.price<=maxValue)
-        let categProducts=res.data.filter(item=>item.category==productType);
-        let products=categProducts.filter(item=>item.price>=minValue&&item.price<=maxValue)
-         !productType? dispatcher(renderProducts(filterProducts)) : 
-         dispatcher(renderCategProducts(products))
-         
-      }).catch(error=>console.log('api error',error)).finally(()=>{})
-        
+    const filterByPrice=async()=>{      
+      const response=await handleProducts(category);
+      const filterProducts=response.data.filter(item=>item.price>=minValue&&item.price<=maxValue);
+      dispatch(renderProducts(filterProducts));
     }
 
   useEffect(()=>{
@@ -64,7 +56,7 @@ export const FilterPrice = ({index,productType}) => {
     },[minValue, maxValue, min, max, step])
   
     return (
-        <div key={index}>
+        <div>
             <RangeSlider 
             minValFn={handleMinVal}
             maxValFn={handleMaxVal} 

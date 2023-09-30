@@ -7,8 +7,7 @@ import { addCart,addQtyandTotalPrice } from '../../utils/services/reducer/cart/c
 import { useDispatch,useSelector } from 'react-redux';
 
 
-const WishlistCard = (props) => {
-  const item=props;
+const WishlistCard = ({item,key}) => {
   const dispatcher=useDispatch();
   const removeWishlist = (item) => {
     dispatcher(removeWish(item));
@@ -24,10 +23,12 @@ const WishlistCard = (props) => {
       <div key={item.key} className='row row-content text-center'>
         <div className='col-2 col-xs-1 img-col'>
           <div className='product-cover'>
-            <img src={item.image} alt={item.title} />
+            <img src={item.images[0]} alt={item.title} />
           </div>
         </div>
-        <div className='col-3 col-xs-2 title-col'>{item.title}</div>
+        <div className='col-3 col-xs-2 title-col'>
+          <p>{item.title}</p>
+        </div>
         <div className='col-2 col-xs-1'>&#8377;{item.price}</div>
         <div className='col-2 col-xs-4 stock'>
           {item.stock === 'In stock' ?
@@ -35,7 +36,7 @@ const WishlistCard = (props) => {
             <p id='outstock'>Out of stock</p>
           }
         </div>
-        <div className='col-2 col-xs-5 action-col'>
+        <div className='col-3 col-xs-5 action-col'>
           {item.stock === 'Out of stock' ?
               <button className='action addtocart disabled' title='Add to Cart'>
                 Add to cart
@@ -45,7 +46,7 @@ const WishlistCard = (props) => {
               ""
               :
               <button className='action addtocart' title='Add to Cart' onClick={()=>addToCart(item)}>
-                Add to cart
+                Add to Cart
               </button>
           }
           <BiTrash className='removewish' onClick={()=>removeWishlist(item)} />

@@ -1,124 +1,137 @@
-import { nanoid } from 'nanoid';
-import {useLocation} from 'react-router-dom';
 import React, { useState, useEffect} from 'react'
-import { getProducts } from '../../../../../utils/services/clientapis/api';
-import {MdOutlineFilterNone} from 'react-icons/md';
+import { nanoid } from 'nanoid';
+import {useLocation, useParams} from 'react-router-dom';
 import Loader from '../../../../../utils/widgets/Loader';
 import Breadcrumbs from '../../../../../components/common/Breadcrumbs';
 import PaginationNav from './PaginationNav';
 import ProductCard from './ProductCard';
 import FilterSection from './FilterSection';
-import { filterConstants} from '../../../../../utils/constants/constant-data';
-import { categoriseProducts, renderCategProducts} from '../../../../../utils/services/reducer/filter/filter-slice';
+import {filterRatings} from '../../../../../utils/constants/constant-data';
+import { categoriseProducts, renderProducts} from '../../../../../utils/services/reducer/filter/filter-slice';
 import { useSelector, useDispatch } from 'react-redux';
+import { getProductByCategory } from '../../../../../utils/services/clientapis/api';
 
- const ProductCategory = (props) => {
+
+
+ const ProductCategory = () => {
   const url=useLocation();
-  const route=url.pathname.slice(1);
-  let labels='';
-  for(let i in filterConstants){
-    if(i==route){
-        labels=filterConstants[i]
-    }
-  }
+  const params=useParams();
+  let category=params['category'];
+  category= category.replace(/\w\S*/g, (str)=>str.charAt(0).toUpperCase() + str.substr(1).toLowerCase());
 
-  let routeArray=url.pathname.split('/');
-  routeArray=routeArray.slice(1);
-
-  const category=props.routeData.title;
-
-  let dispatcher=useDispatch();
   // all states
-  const[isChecked,setIsChecked]=useState(labels);
-  const loader=<Loader />
-  let loading = true;
+  const [productTypes,setProductTypes]=useState([]);
+  const[ratings,setRatings]=useState(filterRatings);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(12);
- const productState=useSelector(state=>state.filterSlice.filteredProducts);
+  const productState=useSelector(state=>state.filterSlice.products);
+  const loading=useSelector(state=>state.filterSlice.loading);
+  let dispatch=useDispatch();
 
 
  // to pagination of products
  const indexOfLastProds=productsPerPage*currentPage;
  const indexOfFirstProds=indexOfLastProds-productsPerPage;
   const sliceProducts=productState.slice(indexOfFirstProds,indexOfLastProds);
+  
 
-  
-  
-  // render products on the page
   const showProducts = () => {
    return productState.length==0 ?
-   <div className='m-auto'> 
-    <MdOutlineFilterNone style={{fontSize:'3rem', color:'#a19e9eaf'}}/>
-    <h3 className=''>No items here</h3> 
+   <div className='d-flex align-items-center m-auto' style={{minHeight:'80vh'}}> 
+    <h4 className='ml-2'>No Products</h4> 
    </div>
    :
-    sliceProducts.map((product) => <ProductCard key={nanoid()} item={product} /> )
+    sliceProducts.map((product) => <ProductCard index={nanoid()} item={product} /> )
   }
+
 
   // to change the pages
   const paginate=(pageNum)=>{
-    setCurrentPage(pageNum)
-    // setCurrentProds(sliceProducts)
+    setCurrentPage(pageNum);
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); 
   };
 
   // to handle rating checkboxes
   const handleCheckbox=(id)=>{
-    const ratingList=isChecked;
-    let checkedRatings=ratingList.map(item=>item.id===id ? {...item,checked:!item.checked} : item)
-    setIsChecked(checkedRatings);
-}
-
-
-const handleFilters=()=>{
-  let checkBoxRate=isChecked.filter(item=>item.checked).map(item=>item.value);
-  if(checkBoxRate.length){
-    // api request by axios
-    const response = getProducts();
-    response.then((res) => {
-      let filterProducts=res.data.filter(item=>checkBoxRate.includes(item.type))
-      dispatcher(renderCategProducts(filterProducts));
-    }).catch((error) => console.log('get error', error))
-      .finally(() => {
-      })
+    let selectedTypes=productTypes.map(item=>item.id===id ? {...item,checked:!item.checked} : item)
+    setProductTypes(selectedTypes);
   }
-  else {
-    dispatcher(categoriseProducts(category));
-  }
-}
 
-// to get JSON data from api
-  useEffect(() => {
-    dispatcher(categoriseProducts(category));
-    setIsChecked(labels);
+  const handleRatings=(id)=>{
+    const selectedRating=ratings.map(item=>item.id===id?{...item,selected:!item.selected}:{...item,selected:false});
+    setRatings(selectedRating);
+  }
+
+  const handleFilters= async ()=>{
+    
+    const response=await getProductByCategory(category);
+    let updated=response.data;
+  
+    let rated=ratings.filter(item=>item.selected).map(item=>item.value);
+    if(rated.length) {
+      updated=updated.filter(item=>item.rating.rate>=Math.trunc(rated[0]));
+    }
+    let checked=productTypes.filter(item=>item.checked).map(item=>item.value);
+    if(checked.length){
+        updated=updated.filter(item=>checked.includes(item.type));
+    }
+    dispatch(renderProducts(updated));
+
+  }
+
+
+  useEffect(async() => {
+    dispatch(categoriseProducts(category));
+   const response=await getProductByCategory(category);
+    const types=[...new Set(response.data.map(item=>item.type))];
     setCurrentPage(1);
-  },[url]);
+    let prodTypes=[];
+    types.map((item,index)=>{
+        return prodTypes.push({
+            label:item,
+            value:item,
+            id:index+1,
+            checked:false
+        });
+        });
+      setProductTypes(prodTypes);
 
-  // to handle filters of checkboxes
+   return ()=>{}
+
+  },[category]);
+
+
+
+  // to handle filters effects
   useEffect(()=>{
     handleFilters();
-  },[isChecked])
+   return ()=>{}
 
+  },[productTypes,ratings])
 
-
-  return (
+    return loading ? <Loader /> :
     <>
-      <div className='col-lg-3 col-md-3'>
+      <div className='col-xl-2 col-lg-3 col-md-12'>
         <FilterSection 
-        checkboxFn={handleCheckbox} 
-        filterLabels={isChecked} 
-        productType={category}
+        handleRatings={handleRatings} 
+        handleTypes={handleCheckbox}
+        ratingLabels={ratings} 
+        typesLabels={productTypes}
+        category={category}
+        handleProducts={getProductByCategory}
         />
+
       </div>
 
-      <div className='col-lg-9 col-md-9'>
-        <div className='col-lg-12'>
+      <div className='col-xl-8 col-lg-9 col-md-12'>
+        {sliceProducts.length!=0?<div className='col-lg-12'>
             <Breadcrumbs link={url}/>
-          </div>
-        <div className='row' style={{minHeight:'800px'}}>
-          {productState.loading ? loader : showProducts()}
+          </div>:''}
+        <div className='row'>
+          {showProducts()}
         </div>
         <div className='mt-5'>
-          {productState.length<=12?
+          {productState.length<=productsPerPage?
               ""
               :
               <PaginationNav 
@@ -131,7 +144,6 @@ const handleFilters=()=>{
           </div>
       </div>
     </>
-  )
 }
 
 export default ProductCategory;

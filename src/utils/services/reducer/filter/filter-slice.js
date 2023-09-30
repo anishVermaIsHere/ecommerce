@@ -1,15 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {getProducts} from '../../../../utils/services/clientapis/api';
-import {filterConstants} from '../../../../utils/constants/constant-data';
+import {getProductByCategory, getProductByQuery, getProducts} from '../../../../utils/services/clientapis/api';
 
 
-const{ratings}=filterConstants;
-let productContainer=[];
 
 const initialState={
     products:[],
-    loading:true,
-    filteredProducts:[],
+    loading:true
 }
 
 export const fetchProducts=createAsyncThunk(
@@ -23,9 +19,16 @@ export const fetchProducts=createAsyncThunk(
 export const categoriseProducts=createAsyncThunk(
     'categoriseProducts',
     async (category)=>{
-        const response= await getProducts();
-        let filtProds=response.data.filter(product=>product.category==category);
-        return filtProds;
+        const response= await getProductByCategory(category);
+        return response.data;
+    }
+)
+
+export const searchProducts=createAsyncThunk(
+    'searchProducts',
+    async(query)=>{
+        const response= await getProductByQuery(query);
+        return response.data;
     }
 )
 
@@ -34,13 +37,18 @@ const filterSlice=createSlice({
     initialState,
     reducers:{
         renderProducts(state,action){
-            state.products=action.payload;
-            return state
+            return {
+                ...state,
+                products:action.payload
+            }
         },
-        renderCategProducts(state,action){
-            state.filteredProducts=action.payload;
-            return state
+        addSize(state,action){
+            const {size,index}=action.payload;
+            const findIndex=state.products.findIndex(item=>item.id==index);
+            state.products[findIndex].size=size;
+            return state;
         }
+        
     },
     extraReducers:(builder)=>{
         builder.addCase(fetchProducts.pending,(state)=>{
@@ -51,22 +59,33 @@ const filterSlice=createSlice({
             state.loading=false;
         })
         builder.addCase(fetchProducts.rejected,(state)=>{
-            state.products=[]
+            state.products=[];
             state.loading=false;
         })
         builder.addCase(categoriseProducts.pending,(state)=>{
             state.loading=true;
         })
         builder.addCase(categoriseProducts.fulfilled,(state,action)=>{
-            state.filteredProducts=action.payload
+            state.products=action.payload
             state.loading=false;
         })
         builder.addCase(categoriseProducts.rejected,(state)=>{
-            state.filteredProducts=[]
             state.loading=false;
+            state.products=[];
+        })
+        builder.addCase(searchProducts.pending,(state)=>{
+            state.loading=true;
+        })
+        builder.addCase(searchProducts.fulfilled,(state,action)=>{
+            state.products=action.payload
+            state.loading=false;
+        })
+        builder.addCase(searchProducts.rejected,(state)=>{
+            state.loading=false;
+            state.products=[];
         })
     }
 })
 
-export const {renderProducts,renderCategProducts,filterByPrice,filterByRating}=filterSlice.actions;
+export const {renderProducts,addSize}=filterSlice.actions;
 export default filterSlice.reducer;

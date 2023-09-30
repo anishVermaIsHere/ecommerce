@@ -30,7 +30,7 @@
                     .checkout-step-label {
                         margin-bottom: 0;
                         font-size: 1.2rem;
-                        font-weight: bold;
+                        font-weight: 600;
                     }
                     .customer-phone-field {
                         #verifyPhone {
@@ -50,7 +50,6 @@
                         select {
                             padding:0.3rem !important;
                             font-size:0.8rem !important;
-                            font-weight:600;
                         }
                         input[type='number']::-webkit-outer-spin-button,
                         input[type='number']::-webkit-inner-spin-button {
@@ -72,7 +71,6 @@
                         background-color: var(--orange);
                         color:#fff;
                     }
-                    
                 }
              
             }
@@ -95,7 +93,7 @@
                     font-weight: 600;
                 }
                 .summary-text {
-                    font-weight: 400;
+                    // font-weight: 400;
                     font-size:0.9rem;
                 }
             }

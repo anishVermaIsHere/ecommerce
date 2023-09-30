@@ -1,40 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@300&family=Poppins:wght@200&family=Waterfall&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Quicksand:wght@300;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
-
-@font-face {
-    font-family: 'Material Icons';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
-    src: local('Material Icons'),
-      local('MaterialIcons-Regular'),
-      /* url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-      url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-      url(https://example.com/MaterialIcons-Regular.ttf) format('truetype'); */
-  }
-  .material-icons {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    /* Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-    /* Support for IE. */
-    font-feature-settings: 'liga';
-  }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
   
 *{
     margin:0;
@@ -47,16 +11,12 @@
 }
 
 :root {
-  --fontpri:'Poppins', sans-serif;
-  --fontsec:'Segoe UI Emoji', sans-serif;
-  --fontthr:'Quicksand', sans-serif;
-  --fontfor:'Lato', sans-serif;
-  --fontfiv:'Oxygen', sans-serif;
+  --fontpri:'Inter', sans-serif;
   --danger:#DC3545;
   --alert:#ff6666;
   --green:rgb(25, 138, 85);
   --orange:#f1a532;
-  --dark:#111113;
+  --dark:#18181b;
   --blur:rgba(0,0,0,.6);
   --fadedark:#747475;
   --globaldark:rgb(59, 59, 59);
@@ -64,10 +24,9 @@
   --fadegrey:#e0e0e0;
   --darkgrey:#757575;
   --navgreenlgt:#75afa8;
-  --navgreendrk:#00796B;
+  --navgreendrk:#076c60;
   --darkgreen:#25554f;
   --lqdgreen:#f1f8f7;
-  --navpurpdrk:rgb(113, 54, 161);
 }
 
 body {
@@ -75,9 +34,12 @@ body {
 }
 
 .app-container {
-  font-family: var(--fontfiv);
-  font-weight:600;
+  font-family: var(--fontpri);
   color:var(--fdark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
 }
 
 h1 {
@@ -170,8 +132,8 @@ li:hover,button:hover {
   border:1px solid var(--darkgrey);
 }
 .page-item.active .page-link {
-  background-color:rgb(41, 40, 40);
-  border:1px solid rgb(41, 40, 40);
+  background: var(--dark);
+  border: var(--dark);
 }
 .pagination-sm .page-link {
   padding:0.4rem 0.8rem;

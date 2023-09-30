@@ -15,8 +15,8 @@ const cartSlice=createSlice({
     initialState,
     reducers:{
       addCart(state,action){
-        let item=action.payload;
-          state.cartVal=state.cartVal+1;
+        let item=action.payload;          
+        state.cartVal=state.cartVal+1;
           state.products.push(item);
       },
       addQtyandTotalPrice(state,action){
@@ -33,18 +33,14 @@ const cartSlice=createSlice({
       },
       incrementQty(state,action){
         let item=action.payload;
-        let itemIndex=state.products.findIndex((prod)=>{
-          return prod.id==item.id;
-        })
+        let itemIndex=state.products.findIndex((prod)=>prod.id==item.id);
         let totalQty=state.products[itemIndex].quantity+=1;    
         let subTotal=state.products[itemIndex].price*totalQty;
         state.products[itemIndex].totalPrice=subTotal;
       },
       decrementQty(state,action){
         let item=action.payload;
-        let itemIndex=state.products.findIndex((prod)=>{
-          return prod.id==item.id;
-        })
+        let itemIndex=state.products.findIndex((prod)=>prod.id==item.id);
         if(item.quantity>1){
           state.products[itemIndex].quantity-=1;    
         }

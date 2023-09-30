@@ -9,11 +9,16 @@
     .menu {
       margin-bottom: 0 !important;
         .menu-item {
-          padding:2px 4px;
+          padding:0.4rem 0.6rem;
           margin:0.2rem 0.4rem;
           display:inline-block;
           font-size:0.9rem;
           font-weight: 400;
+          @media all and (max-width:992px){            
+            padding: 0rem;
+          }
+
+          
           .menu-item-link {
               color:#fff;      
               text-decoration: none; 

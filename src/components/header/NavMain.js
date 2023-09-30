@@ -1,9 +1,8 @@
 import React from 'react';
 import '../../assets/styles/header/Header.css';
 import {NavLink} from 'react-router-dom';
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import {nanoid} from 'nanoid';
-import { URL_PATH, CONSTANTS} from '../../utils/constants/routesdata';
+import { URL_PATH} from '../../utils/constants/routesdata';
 
 
 const NavMain = () => {

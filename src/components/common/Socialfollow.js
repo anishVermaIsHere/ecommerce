@@ -5,7 +5,7 @@ import { sociallink } from '../../utils/constants/constant-data';
 import {nanoid} from 'nanoid';
 
 
-function Socialfollow(icon) {
+function Socialfollow() {
     return (
     <>
         <ul className={menu.socialMenu}> 

@@ -5,14 +5,15 @@ const Loader = () => {
     const center={
         display:'flex',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        minHeight:'100vh'
     }
   return (
     <div className="col-12" style={center}>
-            <div className="loader-container">
-                <div className="loader">
-                </div>
+        <div className="loader-container">
+            <div className="loader">
             </div>
+        </div>
     </div>
   )
 }

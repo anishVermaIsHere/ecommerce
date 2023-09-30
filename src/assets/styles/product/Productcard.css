@@ -1,5 +1,6 @@
 .card {
-  align-self: flex-start;
+  align-self: stretch;
+  justify-content: space-between;
 }
 @media all and (max-width: 575px) {
   .card {
@@ -8,16 +9,20 @@
     flex-direction: row;
   }
 }
-.card .img-container {
-  position: relative;
-  height: 180px;
-  width: 150px;
-  margin: auto;
-}
-.card .img-container .card-img .product-image {
-  height: 180px;
+.card .img-container .card-img img {
+  height: 260px;
   -o-object-fit: contain;
      object-fit: contain;
+}
+@media all and (max-width: 575px) {
+  .card .img-container .card-img img {
+    height: auto;
+  }
+}
+@media all and (max-width: 575px) {
+  .card .img-container {
+    width: 50%;
+  }
 }
 .card .card-body {
   width: 100% !important;
@@ -79,6 +84,9 @@
 .card .card-body .card-action .card-btn {
   border-radius: 0.3rem;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .card .card-body .card-action .addtocart, .card .card-body .card-action .outofstock {
   background-color: var(--navgreendrk);
@@ -97,6 +105,10 @@
 .card .card-body .card-action .outofstock {
   background-color: rgb(233, 120, 14);
 }
+.card .card-body .card-action .addtocart svg, .card .card-body .card-action .removefromcart svg {
+  font-size: 18px;
+  margin-left: 4px;
+}
 
 /* Styling for Product Mini card in the cart */
 .cart-btn {
@@ -109,12 +121,12 @@
   cursor: pointer;
   height: 25px;
   width: 25px;
-  background-color: #ffa41c;
+  background-color: var(--dark);
+  color: #fff;
   border-radius: 0.3rem;
   border: none;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
 }
 .cart-btn .qty {

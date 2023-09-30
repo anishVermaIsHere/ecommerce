@@ -2,10 +2,9 @@
 .aside {
     border:1px solid var(--fadegrey);
     border-radius: 0.5rem;
-    padding:1rem 1.5rem;
-    margin:1rem 1.5rem 1rem 0;
+    padding:0.8rem;
     height:auto;
-    overflow: auto;
+    overflow-y: auto;
     &::-webkit-scrollbar {
         width:8px;
       }
@@ -15,14 +14,12 @@
       }
       &::-webkit-scrollbar-thumb {
       border-radius: 5rem;
-      background-color: var(--fadegrey);
       }
     @media all and (max-width:1196px){
         margin:0;
         padding:0.5rem 0.8rem;
     }
-    @media all and (max-width:767px){
-        // height:50px;
+    @media all and (max-width:992px){
         background:#fff;
         border:none;
     }
@@ -35,28 +32,26 @@
             font-size:1.2rem;
         }
     }
-    .aside_head {
+    .filter_toggle {
         display: none;
-        @media all and (max-width:767px){
+        border-bottom: 1px solid var(--fadegrey);
+        font-size:1rem;
+        padding:0.1rem 0.5rem;
+        margin-bottom:1rem;
+        float:right;
+        background-color: var(--dark);
+        cursor: pointer;
+        border-radius: 0.3rem;
+        color:#fff;
+        &:hover {
+            background-color: #000;
+        }
+        .arrow {
+            font-size:1.2rem;
+            margin-left:0.3rem;
+        }
+        @media all and (max-width:992px){
             display:block;
-            border-bottom: 1px solid var(--fadegrey);
-            font-size:1rem;
-            padding:0.2rem 0.5rem;
-            margin-bottom:1rem;
-            display: inline;
-            float:right;
-            background-color: var(--darkgrey);
-            cursor: pointer;
-            border-radius: 0.3rem;
-            color:#fff;
-            &:hover {
-                background-color: #000;
-            }
-            .arrow {
-                font-size:1.2rem;
-                margin-left:0.3rem;
-            }
-            
         }
         @media all and (max-width:467px){
             font-size:0.8rem;
@@ -64,18 +59,14 @@
         
     }
     .filter_item {
-        // display: none;
-        @media all and (max-width:767px){
+        @media all and (max-width:768px){
             margin-top:0.5rem;
-            // display: none;
         }
         .filter_title {
-        font-weight:bolder;
-        @media all and (max-width:767px){
+        @media all and (max-width:768px){
             display:inline;
             font-size:0.9rem;
             padding:0.2rem 0.3rem;
-            border-bottom: 3px solid var(--darkgrey);
             &:hover {
                 border-color: #000;
                 color:#000;
@@ -90,13 +81,19 @@
 
     .aside_item {
         border:1px solid var(--fadegrey);
-        background: #f9f9f9;
         color:black;
         margin:1rem 0;
         padding:0.3rem;
         border-radius: 0.3rem;
         font-weight: 400;
         font-size:0.9rem;
+
+        .type_filter_list {
+            @media all and (max-width:992px){
+                display: flex;
+                flex-wrap: wrap;
+            }
+        }
 
         /* Price filter section */
 
@@ -117,8 +114,6 @@
                 height:100%;
                 border-radius: 0.3rem;
                 position:absolute;
-                left:0%;
-                right:0%;
                 cursor: pointer;
                 background:var(--navgreendrk);
             }
@@ -137,10 +132,10 @@
                 -moz-appearance: none;
             }
             input[type="range"]::-webkit-slider-thumb{
-                height: 12px;
-                width: 12px;
+                height: 15px;
+                width: 15px;
                 border-radius: 50%;
-                background-image:linear-gradient(var(--navgreendrk), var(--navgreenlgt));
+                background-color:var(--navgreendrk);
                 pointer-events: auto;
                 cursor:pointer;
                 -webkit-appearance: none;
@@ -187,22 +182,27 @@
             padding:0 !important;
             .list_item {
                 padding:0.3rem; 
-                cursor:auto;  
                 display:flex;
                 align-items: center;  
-            
+                cursor:pointer;                   
                 input[type=checkbox]{
                     margin-right:0.5rem;
-                    cursor:pointer;                    
+                    height: 15px;
+                    width: 15px;
+                    accent-color: var(--navgreendrk);
                 }
                 .star {
-                    font-size:1rem;
-                    margin-left:0.3rem;
+                    font-size:1.2rem;
+                    margin-left:0.1rem;
                     color:#ffa41c;
                 }
             }
             .list_item:not(:last-child) {
                 border-bottom:1px solid var(--fadegrey);
+            }
+            .list_item label {
+                font-size: 0.9rem;
+                margin:0;
             }
         }
     }

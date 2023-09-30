@@ -7,7 +7,6 @@
   color: var(--fadegrey);
 }
 .wishlist-heading #h2-wishlist {
-  font-weight: bolder;
   margin-bottom: 0 !important;
 }
 
@@ -19,59 +18,47 @@
 
 .wishlist-container {
   background: #fff;
-  overflow-y: scroll;
-  height: 600px;
-  position: relative;
 }
-.wishlist-container #totalWishlist {
-  background: #fff;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.wishlist-container .row-head {
-  background: #fff;
+.wishlist-container #wishlist-head-wrapper .row-head {
   border-top: 2px solid var(--fadegrey);
   border-bottom: 2px solid var(--fadegrey);
   padding: 0.6rem 0;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 22px;
-  z-index: 10;
-  font-weight: 900;
+  font-weight: 600;
 }
-.wishlist-container .row-content {
-  border-bottom: 2px solid var(--fadegrey);
+.wishlist-container .wishlist-card-container {
+  overflow-y: scroll;
+  height: 600px;
+}
+.wishlist-container .wishlist-card-container .row-content {
+  border-bottom: 1px solid var(--fadegrey);
   padding: 0.5rem;
   display: flex;
-  justify-content: center;
   align-items: center;
   height: 180px;
 }
-.wishlist-container .row-content .img-col .product-cover img {
+.wishlist-container .wishlist-card-container .row-content .img-col .product-cover img {
   max-height: 160px;
   min-width: 120px;
   -o-object-fit: contain;
      object-fit: contain;
 }
-.wishlist-container .row-content .stock p {
-  border-radius: 1rem;
+.wishlist-container .wishlist-card-container .row-content .stock p {
+  font-weight: 600;
   color: #fff;
   margin-top: auto;
   margin-bottom: auto;
   padding: 0;
 }
-.wishlist-container .row-content .stock #instock {
-  background-color: var(--green);
+.wishlist-container .wishlist-card-container .row-content .stock #instock {
+  color: var(--green);
 }
-.wishlist-container .row-content .stock #outstock {
-  background-color: rgb(233, 120, 14);
+.wishlist-container .wishlist-card-container .row-content .stock #outstock {
+  color: rgb(233, 120, 14);
 }
-.wishlist-container .row-content .action-col {
+.wishlist-container .wishlist-card-container .row-content .action-col {
   justify-content: center;
 }
-.wishlist-container .row-content .action-col .action {
+.wishlist-container .wishlist-card-container .row-content .action-col .action {
   height: 40px;
   width: 100px;
   margin: 0.8rem;
@@ -79,10 +66,10 @@
   border: none;
   border-radius: 0.3rem;
 }
-.wishlist-container .row-content .action-col .addtocart {
+.wishlist-container .wishlist-card-container .row-content .action-col .addtocart {
   background-color: var(--navgreendrk);
 }
-.wishlist-container .row-content .action-col .removewish {
+.wishlist-container .wishlist-card-container .row-content .action-col .removewish {
   color: var(--darkgrey);
   font-size: 1.6rem;
   cursor: pointer;
@@ -96,17 +83,17 @@
     font-size: 1.2rem;
   }
   .wishlist-heading #empty-wishlist,
-.wishlist-heading #h2-wishlist {
+  .wishlist-heading #h2-wishlist {
     font-size: 1.3rem;
   }
   .wishlist-container {
     font-size: 0.8rem;
   }
-  .wishlist-container .row-content .img-col .product-cover img {
+  .wishlist-container .wishlist-card-container .row-content .img-col .product-cover img {
     min-height: 80px;
     min-width: 60px;
   }
-  .wishlist-container .row-content .action-col .action {
+  .wishlist-container .wishlist-card-container .row-content .action-col .action {
     width: auto;
     padding: 0.2rem;
   }
@@ -115,15 +102,15 @@
   .wishlist-container {
     font-size: 0.6rem;
   }
-  .wishlist-container .row-content .action-col {
+  .wishlist-container .wishlist-card-container .row-content .action-col {
     flex-direction: column;
     max-width: 100px;
     padding: 0;
   }
-  .wishlist-container .row-content .action-col .action {
+  .wishlist-container .wishlist-card-container .row-content .action-col .action {
     height: 20px;
   }
-  .wishlist-container .row-content .action-col .removewish {
+  .wishlist-container .wishlist-card-container .row-content .action-col .removewish {
     font-size: 0.8rem;
   }
 }/*# sourceMappingURL=Wishlist.css.map */

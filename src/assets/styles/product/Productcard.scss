@@ -1,21 +1,22 @@
 
 .card {
-    align-self:flex-start;
+    align-self:stretch;
+    justify-content: space-between;
     @media all and (max-width:575px) {
         max-width:400px !important;
         margin:auto;
         flex-direction:row;
     }
     .img-container {
-        position:relative;
-        height:180px;
-        width:150px;
-        margin:auto;
-        .card-img {
-            .product-image {
-                height:180px;
-                object-fit: contain;
-            }
+        .card-img img {
+            height: 260px;
+            object-fit: contain;
+            @media all and (max-width:575px) {
+                height:auto;
+             }
+        }
+        @media all and (max-width:575px) {
+           width: 50%;
         }
             
     }
@@ -76,6 +77,9 @@
             .card-btn {
                 border-radius: 0.3rem;
                 border:none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
             .addtocart,.outofstock {
                 background-color: var(--navgreendrk);
@@ -94,6 +98,10 @@
             .outofstock {
                 background-color: rgb(233, 120, 14);
             }
+            .addtocart svg, .removefromcart svg {
+                font-size: 18px;
+                margin-left: 4px;
+            }
         }
     }
 }
@@ -110,7 +118,8 @@
         cursor: pointer;
         height:25px;
         width:25px;
-        background-color:#ffa41c;
+        background-color:var(--dark);
+        color: #fff;
         border-radius: 0.3rem;
         border:none;
         user-select: none;

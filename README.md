@@ -1,22 +1,23 @@
-# ecommerce
-# This is a shopping application developed in React JS
-the app link is 
+# eStore - An Ecommerce Application
+# This is a Frontend Shopping Application built with using ReactJS & Bootstrap
 
-**link:1** https://ecomm-store-22.web.app 
+The App Link is 
 
-**link:2** https://anishvermaishere.github.io/ecomm-live/
+**Link:1** https://ecomm-store-22.web.app 
+
+**Link:2** https://anishvermaishere.github.io/ecomm-live/
 
 **Before run this application you have to install the NodeJS**
 
 **To run the application**
 
-1. Download this code as zip and open visual studio code with terminal and run command **`npx create-react-app app_name`**.
+1. Download this code as zip and open visual studio code with terminal and run command **`npx create-react-app eStore`**.
 
 2. Then extract the downloaded file and copy **`src`**,**`public`** folder and **`package.json`** file and paste and replace it into your app folder which you created by the command in step1.
 
 3. After copied the files you run command **`npm i`** or **`npm install`**.
 
-4. Now you have to create **`.env`** file into your app folder which you created, open the **`.env`** file and type the line **`REACT_APP_BASEURL=https://anishvermaishere.github.io`** and save it.
+4. Now you have to create **`.env`** file into your app folder which you created, open the **`.env`** file and type the line **`REACT_APP_BASEURL=https://anish-mockapi.onrender.com/`** and save it.
 
 4. After the installation of all dependencies and environment setup. Now, you have to run last command **`npm start`**.
 

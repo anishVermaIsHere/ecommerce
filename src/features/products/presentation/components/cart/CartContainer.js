@@ -1,10 +1,7 @@
 
-import {BsCartX,BsEmojiNeutral} from 'react-icons/bs';
-import React,{useState,useEffect} from 'react';
+import React,{useEffect} from 'react';
 import {MdOutlineClose} from "react-icons/md";
-import {FaArrowCircleRight} from 'react-icons/fa';
 import cart from '../../../../../assets/styles/cart/Cart.module.css';
-import { NavLink } from 'react-router-dom';
 import Cart from './Cart';
 import { useSelector,useDispatch } from 'react-redux';
 import {calcTotal} from '../../../../../utils/services/reducer/cart/cart-slice';
@@ -56,27 +53,9 @@ return(
     <div style={styleCart}>
       <div className={cart.cartHeading}>
         <MdOutlineClose className={cart.cartClose} onClick={cartClose}/>
-        <span className={cart.cartTitle}>Shopping Cart</span>
+        <h4 className={cart.cartTitle}>My Cart</h4>
       </div>
      <Cart cartClose={cartClose} user={props.user} />
-     {/* <div className={`${cart.checkoutContainer} `}>
-        <div className={`${cart.checkout} d-flex-ai-center justify-content-between `}>
-            <div>
-            Items {products.length}
-            </div>
-          <div className=''>
-            Total &#8377;{totalAmt}
-          </div>
-          <div className=''>
-            <NavLink to='/checkout' role='button'>
-              <button className={cart.checkoutBtn} onClick={cartClose}>
-                Proceed
-              <FaArrowCircleRight className={cart.checkoutArrow}/>
-              </button>
-            </NavLink>
-          </div>
-        </div>
-      </div> */}
     </div>
   </div>
   </>

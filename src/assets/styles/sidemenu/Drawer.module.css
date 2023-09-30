@@ -43,6 +43,7 @@
 .accordion {
     display: block;
     margin-top:2rem;
+    padding: 0.1rem;
 }
 .accordionMenu {
     font-size:14px;
@@ -52,19 +53,20 @@
 .accordionList {
     position: relative;
 }
-.accordionList .accordionLink{
-    display: inline-block;
-    padding:0.6rem 1rem;
+.accordionList .accordionLink,
+.accordionList .accordionItem {
+    display: block;
+    width:100%;
+    padding:0.3rem;
     font-size: 1rem;
     border-bottom:1px solid #e1e1e1;
     color:var(--navgreendrk);
-    width:100%;
 } 
 .accordionLink:hover .arrow {
     color:var(--fadelight);
 }
 .accordionLink:hover,
-.accordionSubMenuList .subMenuLink:hover {
+.accordionSubMenu .accordionSubMenuList .subMenuLink:hover {
     color:var(--fadelight);
     background-color:var(--navgreendrk);
 }
@@ -78,17 +80,14 @@
     color:var(--fadelight);
 }
 
-.accordionSubMenu  {
-    padding:0;
-}
-.accordionSubMenuList .subMenuLink {
+.accordionSubMenu .accordionSubMenuList .subMenuLink {
     color:var(--navgreendrk);
     display: inline-block;
     width:100%;
-    padding:0.4rem 0 0.4rem 2.7rem;
+    padding:0.1rem 0 0.1rem 1.65rem;
 }
-.accordionSubMenuList:last-child {
-    /* padding-bottom:10px; */
+.accordionSubMenu .accordionSubMenuList:not(:last-child) {
+    border-bottom: 1px solid var(--fadelight);
 }
 .drawerClose {
     position:absolute;

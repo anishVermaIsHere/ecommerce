@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import cart from '../../../../../assets/styles/cart/Cart.module.css';
 import { BsCartX } from 'react-icons/bs';
 import {FaArrowCircleRight} from 'react-icons/fa';
@@ -7,13 +7,9 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import '../../../../../assets/styles/product/Productcard.css';
-import MiniCard from '../../widgets/MiniCard';
+import CartItemCard from '../../widgets/CartItemCard';
 
 function Cart(props) {
-  const [message, setMessage] = useState('Cart is empty');
-  const [shopBtn, setShopBtn] = useState('Start Shopping');
-  const [basket, setBasket] = useState();
-
   const cartClose=props.cartClose;
   const cartSliceProducts = useSelector((state) => {
     return state.cartSlice.products;
@@ -32,17 +28,16 @@ function Cart(props) {
       <div className={cart.basket}>
         <BsCartX className={cart.cartWatermark}/> 
         <div className={cart.basketInfo}>
-          <h4>{message}</h4>
+          <h4>Cart is Empty</h4>
         </div>
         <div className={cart.basketBtnContainer}>
-          <NavLink to={props.user==null||undefined? '/signin' : '/products'} role='button' className={cart.basketBtn} onClick={cartClose}>
-            {shopBtn}
+          <NavLink to='/products' role='button' className={cart.basketBtn} onClick={cartClose}>
+            Start Shopping
           </NavLink>
         </div>
       </div>
     )
-  }
-  
+  }  
   const LoadCart = () => {
     return (
       <>
@@ -55,14 +50,15 @@ function Cart(props) {
           {
             cartSliceProducts.map((item) => {
               return (
-                <MiniCard
+                <CartItemCard
                   index={nanoid()}
                   id={item.id}
                   title={item.title}
-                  image={item.image}
+                  image={item.images[0]}
                   price={item.price}
                   quantity={item.quantity}
                   totalPrice={item.totalPrice}
+                  size={item.size}
                 />
               )
             })
@@ -78,7 +74,7 @@ function Cart(props) {
                 Total &#8377;{totalAmt}
               </div>
               <div className=''>
-               <NavLink to={props.user==null||undefined? '/signin' : '/checkout'} role='button'>
+                  <NavLink to={props.user==null||undefined? '/signin' : '/checkout'} role='button'>
                     <button className={cart.checkoutBtn} onClick={cartClose}>
                       Proceed
                       <FaArrowCircleRight className={cart.checkoutArrow} />

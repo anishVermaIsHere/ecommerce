@@ -1,3 +1,4 @@
+import React from 'react';
 import { BsHeart } from 'react-icons/bs';
 import { FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 import { AiOutlineHome} from 'react-icons/ai';
@@ -5,10 +6,13 @@ import { FiBox } from 'react-icons/fi';
 import { MdOutlineErrorOutline } from 'react-icons/md';
 import draw from '../../assets/styles/sidemenu/Drawer.module.css';
 import menu from '../../assets/styles/common/Socialfollow.module.css';
+import { CONSTANTS } from './routesdata';
 
+
+const {MEN,WOMEN,GROCERIES,ELECTRONICS,BEVERAGES,PACKFOODS}=CONSTANTS;
 
 export const app={
-    name:'e-Commerce'
+    name:'e-Store'
 }
 
 export const sidebarMenu = [
@@ -20,6 +24,33 @@ export const sidebarMenu = [
     {
         name: 'Products',
         link:'/products',
+        children:[
+            {
+                link:MEN,
+                label:'Men'
+            },
+            {
+                link:WOMEN,
+                label:'Women'
+            },
+            {
+                link:GROCERIES,
+                label:'Groceries'
+            },
+            {
+                link:PACKFOODS,
+                label:'Packaged Foods'
+            },
+            {
+                link:BEVERAGES,
+                label:'Beverages'
+            },
+            {
+                link:ELECTRONICS,
+                label:'Electronics'
+            },
+
+        ],
         icon: <FiBox className={draw.linkIcon} />,
     },
     {
@@ -56,15 +87,7 @@ export const slider = [
     { url: 'https://firebasestorage.googleapis.com/v0/b/ecomm-store-22.appspot.com/o/assets%2Fimages%2Fslider%2F06.png?alt=media&token=2c75c41d-03f4-48b8-8de3-d0c5efc84d03', alt: 'random' }
 ];
 
-export const mainCategory = [
-    { id: 'grfb', name: 'Groceries', type: 'Foods and Beverages', link:'/groceries' },
-    { id: 'pffb', name: 'Packaged Foods', type: 'Foods and Beverages', link:'/packagefoods' },
-    { id: 'bfb', name: 'Beverages', type: 'Foods and Beverages', link:'/beverages' },
-    { id: 'menf', name: 'Men', type: 'Fashion', link:'/men' },
-    { id: 'womf', name: 'Women', type: 'Fashion', link:'/women' },
-    { id: 'mobp', name: 'Mobile Phones', type: 'Mobiles', link:'/mobiles/' },
-    { id: 'elect', name: 'Electronics', type: 'Electronics', link:'/electronics/' }
-];
+
 export const widgets = {
     foods: [
         {
@@ -103,35 +126,35 @@ export const prodCategory = [
         name: 'Mobiles',
         type: 'Mobiles',
         image: 'https://firebasestorage.googleapis.com/v0/b/ecomm-store-22.appspot.com/o/assets%2Fimages%2Fcategory%2Fmobilecatg.jpg?alt=media&token=c72b10ec-0149-4053-9025-2eb0adb5a20e',
-        link:'/mobiles'
+        link:ELECTRONICS
     },
     { 
         id: 'Elc', 
         name: 'Electronics', 
         type: 'Electronics', 
         image: 'https://firebasestorage.googleapis.com/v0/b/ecomm-store-22.appspot.com/o/assets%2Fimages%2Fcategory%2Felectronicscatg.jpg?alt=media&token=44ff4e7f-cddd-4afe-abc0-f04c5698b447', 
-        link:'/electronics'
+        link:ELECTRONICS
     },
     { 
         id: 'Gro', 
         name: 'Groceries', 
         type: 'Groceries', 
         image: 'https://firebasestorage.googleapis.com/v0/b/ecomm-store-22.appspot.com/o/assets%2Fimages%2Fcategory%2Fgroceriescatg.png?alt=media&token=9fe96b79-47bd-496c-87d4-ed016f4273f0', 
-        link:'/groceries'
+        link:GROCERIES
     },
     { 
         id: 'PkgFB', 
         name: 'Packaged Foods', 
         type: 'Foods and Beverages', 
         image: 'https://firebasestorage.googleapis.com/v0/b/ecomm-store-22.appspot.com/o/assets%2Fimages%2Fcategory%2Fpackfoodscatg.png?alt=media&token=1f019e9b-d5a4-43c0-9159-8ba5e117aa64', 
-        link:'/packagedfoods'
+        link:PACKFOODS
     },
     { 
         id: 'Fsn', 
         name: 'Fashion', 
         type: 'Clothing & Wear', 
         image: 'https://firebasestorage.googleapis.com/v0/b/ecomm-store-22.appspot.com/o/assets%2Fimages%2Fcategory%2Ffashioncatg.jpg?alt=media&token=f7533984-f9b7-47b1-ab2d-ce73587217ce', 
-        link:'/men'
+        link:MEN
     }
 ]
 
@@ -211,166 +234,11 @@ export const signUp = {
 
 };
 
+export const filterRatings=[
+    { id:4, value:4, label:'4', selected:false},
+    { id:3, value:3, label:'3', selected:false},
+    { id:2, value:2, label:'2', selected:false},
+    { id:1, value:1, label:'1', selected:false}
+]
 
-export const filterConstants={
-    products:[
-        {
-            id:1,
-            checked:false,
-            label:'3+',
-            value:3
-        },
-        {
-            id:2,
-            checked:false,
-            label:'4+',
-            value:4
-        },
-        {
-            id:3,
-            checked:false,
-            label:'5',
-            value:5
-        },
-    ],
-    groceries:[
-        {
-            id:1,
-            checked:false,
-            value:'Pulses',
-            label:'Pulses'
-        },
-        {
-            id:2,
-            checked:false,
-            value:'Rice',
-            label:'Rice'
-        },
-        {
-            id:3,
-            checked:false,
-            value:'Sugar',
-            label:'Sugar'
-        },
-        {
-            id:4,
-            checked:false,
-            value:'Atta',
-            label:'Atta'
-        },
-    ],
-    electronics:[
-        {
-            id:1,
-            value:'Laptop',
-            label:'Laptop',
-            checked:false,
-    
-        },
-        {
-            id:2,
-            value:'TV',
-            label:'TV',
-            checked:false,
-        },
-        {
-            id:3,
-            value:'AC',
-            label:'AC',
-            checked:false,
-        },
-        {
-            id:4,
-            value:'Earphone',
-            label:'Earphone',
-            checked:false,
-        },
-    ],
-    mobiles:[
-        {
-            id:1,
-            value:'Samsung',
-            label:'Samsung',
-            checked:false,
-    
-        },
-        {
-            id:2,
-            value:'Apple',
-            label:'Apple',
-            checked:false,
-    
-        },
-        {
-            id:3,
-            value:'Redmi',
-            label:'Redmi',
-            checked:false,
-        },
-    ],
-    men:[
-        {
-            id:1,
-            value:'Jeans',
-            label:'Jeans',
-            checked:false,
-        },
-        {
-            id:2,
-            value:'T-shirts',
-            label:'T-shirts',
-            checked:false,
-        },
-    ],
-    women:[
-        {
-            id:1,
-            value:'Top',
-            label:'Top',
-            checked:false,
-        },
-        {
-            id:2,
-            value:'Kurti',
-            label:'Kurti',
-            checked:false,
-        },
-    ],
-    beverages:[
-        {
-            id:1,
-            value:'Cold Drink',
-            label:'Cold Drink',
-            checked:false,
-        },
-        {
-            id:2,
-            value:'Coffee',
-            label:'Coffee',
-            checked:false,
-        },
-    
-    ],
-    packagedfoods:[
-        {
-            id:1,
-            value:'Biscuits',
-            label:'Biscuits',
-            checked:false,
-        },
-        {
-            id:2,
-            value:'Snacks',
-            label:'Snacks',
-            checked:false,
-        },
-        {
-            id:3,
-            value:'Noodles',
-            label:'Noodles',
-            checked:false,
-        },
-    ],
-    }
-    
     
