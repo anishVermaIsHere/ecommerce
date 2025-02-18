@@ -1,17 +1,21 @@
-import React,{useState} from 'react';
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {signIn} from '../utils/constants/constant-data';
 import {AiFillGoogleCircle} from 'react-icons/ai';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import {app} from '../utils/services/auth/firebaseConfig';
+import {app} from '../services/auth/firebaseConfig';
 import login from '../assets/styles/user/Login.module.css';
-import {CONSTANTS} from '../utils/constants/routesdata';
+import ROUTES from '../routes/route-links';
 import { useFormik } from 'formik';
-import {signInSchema} from '../utils/validation/validation-schema';
+import {signInSchema} from '../utils/validation/schema';
+import { useDispatch } from 'react-redux';
+import { setAccessToken, setUser } from '../lib/reducer/auth/auth-slice';
+
 
 
 export default function SignIn() {
   const[showPwd,setShowPwd]=useState(false);
+  const dispatch = useDispatch();
   const navigate=useNavigate();
   let fieldValid=true;
   const formik = useFormik({
@@ -38,13 +42,15 @@ export default function SignIn() {
           .then((result) => {
               // This gives you a Google Access Token. You can use it to access the Google API.
               const credential = GoogleAuthProvider.credentialFromResult(result);
-              const token = credential.accessToken;
-              // The signed-in user info.
-              const user = result.user;
-              localStorage.setItem('authUser',JSON.stringify({
-                username:user.displayName,
-                token:token
-              }))
+              const currentUser = result.user;
+              const user = {
+                displayName: currentUser.displayName,
+                email: currentUser.email,
+                emailVerified: currentUser.emailVerified,
+                photoURL: currentUser.photoURL,
+              };
+              dispatch(setUser(user));
+              dispatch(setAccessToken(currentUser.accessToken));
               navigate('/');
               // ...
           }).catch((error) => {
@@ -58,7 +64,6 @@ export default function SignIn() {
               // ...
           });
   }
-
 
   return (
     <>
@@ -106,7 +111,7 @@ export default function SignIn() {
             </label>
         <div>
             <span className={login.message}>Don't have an account?</span> 
-            <NavLink to={CONSTANTS.SIGNUP} className={login.signup}>
+            <NavLink to={ROUTES.SIGNUP} className={login.signup}>
             <button className={login.signupBtn} id={login.signup}>
               Sign up
             </button>

@@ -15,8 +15,10 @@
   width: 40px;
   height: 40px;
   padding: 0.2rem 0.4rem;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
   background-image: linear-gradient(to right, var(--orange), rgb(252, 165, 4));
   color: #fff;
   font-size: 1.3rem;

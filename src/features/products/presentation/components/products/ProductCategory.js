@@ -1,15 +1,14 @@
-import React, { useState, useEffect} from 'react'
-import { nanoid } from 'nanoid';
-import {useLocation, useParams} from 'react-router-dom';
+import { useState, useEffect} from 'react'
+import { useLocation, useParams } from 'react-router-dom';
 import Loader from '../../../../../utils/widgets/Loader';
 import Breadcrumbs from '../../../../../components/common/Breadcrumbs';
 import PaginationNav from './PaginationNav';
 import ProductCard from './ProductCard';
 import FilterSection from './FilterSection';
-import {filterRatings} from '../../../../../utils/constants/constant-data';
-import { categoriseProducts, renderProducts} from '../../../../../utils/services/reducer/filter/filter-slice';
+import { filterRatings } from '../../../../../utils/constants/constant-data';
+import { categoriseProducts, renderProducts} from '../../../../../lib/reducer/filter/filter-slice';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductByCategory } from '../../../../../utils/services/clientapis/api';
+import { getProductByCategory } from '../../../../../services/api/product';
 
 
 
@@ -41,7 +40,7 @@ import { getProductByCategory } from '../../../../../utils/services/clientapis/a
     <h4 className='ml-2'>No Products</h4> 
    </div>
    :
-    sliceProducts.map((product) => <ProductCard index={nanoid()} item={product} /> )
+    sliceProducts.map((product) => <ProductCard key={product.id} item={product} /> )
   }
 
 

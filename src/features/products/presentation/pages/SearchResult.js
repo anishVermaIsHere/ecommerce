@@ -6,9 +6,9 @@ import PaginationNav from '../components/products/PaginationNav';
 import ProductCard from '../components/products/ProductCard';
 import FilterSection from '../components/products/FilterSection';
 import { filterRatings } from '../../../../utils/constants/constant-data';
-import { renderProducts, searchProducts } from '../../../../utils/services/reducer/filter/filter-slice';
+import { renderProducts, searchProducts } from '../../../../lib/reducer/filter/filter-slice';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductByQuery } from '../../../../utils/services/clientapis/api';
+import { getProductByQuery } from '../../../../services/api/product';
 
 
 
@@ -37,7 +37,7 @@ import { getProductByQuery } from '../../../../utils/services/clientapis/api';
      <h4 className='ml-2'>No Products</h4> 
     </div>
     :
-     sliceProducts.map((product) => <ProductCard index={nanoid()} item={product} /> )
+     sliceProducts.map((product) => <ProductCard key={product.id} item={product} /> )
    }
  
 

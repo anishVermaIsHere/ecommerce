@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { BsHeart,BsHeartFill,BsStarFill,BsStar } from 'react-icons/bs';
 import { BiTrash } from 'react-icons/bi';
 import { BsCart2 } from 'react-icons/bs';
 import { useDispatch,useSelector } from 'react-redux';
-import { addCart,removeCart,addQtyandTotalPrice} from '../../../../../utils/services/reducer/cart/cart-slice';
-import { addWishlist,removeWish } from '../../../../../utils/services/reducer/wishlist/wishlist-slice';
+import { addCart,removeCart,addQtyandTotalPrice} from '../../../../../lib/reducer/cart/cart-slice';
+import { addWishlist,removeWish } from '../../../../../lib/reducer/wishlist/wishlist-slice';
+import { addSize } from '../../../../../lib/reducer/filter/filter-slice';
 import '../../../../../assets/styles/product/Productcard.css';
-import { addSize } from '../../../../../utils/services/reducer/filter/filter-slice';
+import { nanoid } from 'nanoid';
 
 
-const ProductCard = ({item, index}) => {
+const ProductCard = ({ item }) => {
     const dispatcher=useDispatch();
     const sizeList=[]
     const [selectedSize,setSelectedSize]=useState([]);
@@ -59,7 +60,7 @@ const ProductCard = ({item, index}) => {
 
 
     return (
-        <div key={index} className="card col-lg-3 col-md-4 col-sm-6 border-light">
+        <div key={item.id} className="card col-lg-3 col-md-4 col-sm-6 border-light">
             <div className='img-container'>
                 <div className='card-img'>
                     <img src={item.images[0]} className="product-image" alt={item.title} loading='lazy'/>
@@ -71,7 +72,7 @@ const ProductCard = ({item, index}) => {
                     <span className='mr-2'>&#8377;{item.price}</span>
                     <del className='text-danger' style={{textDecoration:'line-through'}}>&#8377;{item.prevprice}</del>
                     {item.sizes&&<select className='ml-3' onChange={(e)=>selectSize(e,item.id)}>
-                    {selectedSize.map((size,id)=><option value={size.value} key={size.id} selected={size.selected}>{size.label}</option>)}
+                    {selectedSize.map((size)=><option value={size.value} key={nanoid()} selected={size.selected}>{size.label}</option>)}
                     </select>}
                 </p>
                 

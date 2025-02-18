@@ -1,16 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { Provider } from "react-redux";
-import store from './utils/services/store/appstore';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import AppConfig from "./config/app.config";
 
-ReactDOM.render(
-  <Provider store={store}>
-      <App />
-  </Provider>
-  ,
-  document.getElementById('root')
-);
+document.title = AppConfig.appName;
+
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

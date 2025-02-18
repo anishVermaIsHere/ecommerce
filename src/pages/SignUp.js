@@ -2,7 +2,7 @@ import React from 'react';
 import {signUp} from '../utils/constants/constant-data';
 import signup from '../assets/styles/user/Login.module.css';
 import { useFormik } from 'formik';
-import {signUpSchema} from '../utils/validation/validation-schema';
+import {signUpSchema} from '../utils/validation/schema';
 
 export default function SignUp() {
   const formik = useFormik({

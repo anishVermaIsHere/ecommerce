@@ -14,7 +14,6 @@ export default function Accordion({title, icon,link,hambgClose,children}) {
 
     const toggleMenu=()=>{
         setSubMenu(!subMenu);
-        console.log('clll')
     }
 
     return(
@@ -25,7 +24,7 @@ export default function Accordion({title, icon,link,hambgClose,children}) {
             :
             <MdKeyboardArrowDown className='float-end'/>}
             </p>
-           { subMenu&&<ul className={`${draw.accordionSubMenu} my-1`}>
+           {subMenu&&<ul className={`${draw.accordionSubMenu} my-1`}>
                 {children.map(({label,link})=><li className={draw.accordionSubMenuList}>
                     <NavLink className={draw.subMenuLink} onClick={hambgClose} to={link}>{label}</NavLink>
                 </li>)}

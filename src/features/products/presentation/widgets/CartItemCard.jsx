@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import {removeCart,incrementQty,decrementQty } from '../../../../utils/services/reducer/cart/cart-slice';
+import {removeCart,incrementQty,decrementQty } from '../../../../lib/reducer/cart/cart-slice';
 import cart from '../../../../assets/styles/cart/Cart.module.css';
 import { BiTrash } from 'react-icons/bi';
 

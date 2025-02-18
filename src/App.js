@@ -1,22 +1,20 @@
-import React, {useEffect} from 'react';
-import './App.css';
-import ShopApp from './App/ShopApp.js';
-import {BrowserRouter as Router} from 'react-router-dom';
-import {app} from './utils/constants/constant-data';
-import ErrorBoundary from './components/error/ErrorBoundary';
+import "./App.css";
+import ShopApp from "./App/ShopApp.js";
+import { BrowserRouter as Router } from "react-router-dom";
+import ErrorBoundary from "./components/error/ErrorBoundary";
+import { Provider } from "react-redux";
+import store  from "./store/appstore.js";
 
-
-const App=()=> {
-  useEffect(()=>{
-    document.querySelector('#page-title').innerHTML=app.name;
-  },[])
+const App = () => {
   return (
     <ErrorBoundary>
-      <Router>  
-        <ShopApp />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <ShopApp />
+        </Router>
+      </Provider>
     </ErrorBoundary>
   );
-}
+};
 
 export default App;

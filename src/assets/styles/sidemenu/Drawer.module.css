@@ -19,6 +19,9 @@
     left:-100%;
 }
 .drawer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position:absolute;
     top:0;
     left:0;
@@ -57,7 +60,7 @@
 .accordionList .accordionItem {
     display: block;
     width:100%;
-    padding:0.3rem;
+    padding:0.5rem 0.8rem;
     font-size: 1rem;
     border-bottom:1px solid #e1e1e1;
     color:var(--navgreendrk);
@@ -84,7 +87,7 @@
     color:var(--navgreendrk);
     display: inline-block;
     width:100%;
-    padding:0.1rem 0 0.1rem 1.65rem;
+    padding:0.5rem 1.3rem;
 }
 .accordionSubMenu .accordionSubMenuList:not(:last-child) {
     border-bottom: 1px solid var(--fadelight);

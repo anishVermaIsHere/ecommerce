@@ -11,6 +11,7 @@ import CartItemCard from '../../widgets/CartItemCard';
 
 function Cart(props) {
   const cartClose=props.cartClose;
+  const authState = useSelector(state=>state.authSlice);
   const cartSliceProducts = useSelector((state) => {
     return state.cartSlice.products;
   })
@@ -74,7 +75,7 @@ function Cart(props) {
                 Total &#8377;{totalAmt}
               </div>
               <div className=''>
-                  <NavLink to={props.user==null||undefined? '/signin' : '/checkout'} role='button'>
+                  <NavLink to={!authState?.accessToken ? '/signin' : '/checkout'} role='button'>
                     <button className={cart.checkoutBtn} onClick={cartClose}>
                       Proceed
                       <FaArrowCircleRight className={cart.checkoutArrow} />

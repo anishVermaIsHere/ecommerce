@@ -7,23 +7,25 @@ import { BsHeart } from 'react-icons/bs';
 import { BsCart2 } from 'react-icons/bs';
 import { FiUser } from 'react-icons/fi';
 import navbar from '../../assets/styles/header/Navbar.module.css';
-import {app } from '../../utils/constants/constant-data';
 import Searchbar from './Searchbar.js';
 import Drawer from '../common/Drawer';
 import CartContainer from '../../features/products/presentation/components/cart/CartContainer';
 import CartTotal from '../../features/products/presentation/widgets/CartTotal';
 import WishlistTotal from '../../features/products/presentation/widgets/WishlistTotal';
+import AppConfig from '../../config/app.config.js';
+import AuthUserMenu from './AuthUserMenu.js';
+import { useSelector } from 'react-redux';
 
 
-export function Nav({signOutUser}) {
+export function Nav() {
     const [show, setShow] = useState(false);
     const [drawer, setDrawer] = useState(false);
     const [cart, setCart] = useState(false);
-    const authUser=JSON.parse(localStorage.getItem('authUser'));
+    const authState = useSelector(state=>state.authSlice);
 
     const activeLink= {
         borderBottom:'3px solid #fff'
-      }
+    }
 
     useEffect(()=>{
         function searchbar() {
@@ -64,7 +66,7 @@ export function Nav({signOutUser}) {
                     <IoMenuOutline className={`navbar-toggler-icon ${navbar.hambg}`} onClick={drawerMenu} />
                     <NavLink className={`navbar-brand ${navbar.brand}`} to='/'>
                         <img src={logo} className={navbar.logo} alt='logo' loading='lazy'/>
-                        {app.name}
+                        {AppConfig.appName}
                     </NavLink>
                     <div className={navbar.navtoggle}>
                         <AiOutlineSearch className={navbar.searchic} onClick={searchbar} />
@@ -72,22 +74,14 @@ export function Nav({signOutUser}) {
                             <CartTotal style={{fontSize:'0.8rem'}}/>
                             <BsCart2 className={navbar.cart} onClick={shopcart} />
                         </div>
-                        {authUser==null||undefined ? 
+                        {!authState?.accessToken ? 
                         <NavLink to='/signin' className={navbar.signin}><FiUser className={navbar.signin} /></NavLink>
-                        :
-                        <NavLink to='#' className={navbar.userAccItem}>
-                            <span className={navbar.userName}>Hi, {authUser.username.split(" ")[0]}</span>
-                            <div className={navbar.userDropdownMenu}>
-                                <p className={navbar.userMyAccountTitle}>My Account</p>
-                                <NavLink className={navbar.userDropdownItem} to="#">Your orders</NavLink>
-                                <NavLink className={navbar.userDropdownItem} to='#' onClick={signOutUser}>Sign out</NavLink>
-                            </div>
-                        </NavLink>}
+                        : ''}
                     </div>
 
                     <div className={`collapse navbar-collapse d-flex justify-content-center ${navbar.navlg}`}>
                         <Searchbar />
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <ul className="d-flex align-items-center mb-2 mb-lg-0">
                             <li id='wishlistkey101' className="nav-item">
                                 <NavLink className={`${navbar.navlink} ${navbar.wishLink}`} to='/wishlist'
                                 style={({ isActive }) => isActive ? activeLink : undefined }>
@@ -101,26 +95,21 @@ export function Nav({signOutUser}) {
                                     <CartTotal />
                                 </span>
                             </li>
-                           {authUser == null||undefined ? 
+                           {!authState?.accessToken ? 
                             <li id='signinkey102' className={`nav-item ${navbar.signInItem}`}>
                                 <NavLink className={`${navbar.navlink} ${navbar.signIn}`} to='/signin'>Sign in</NavLink>
                             </li>
                             :
-                            <li id='signinkey102' className={`nav-item ${navbar.userAccItem}`}>
-                                <NavLink className={`${navbar.navlink} ${navbar.signinedUserName}`} to='#'>Hi, {authUser.username.split(" ")[0]}</NavLink>
-                                    <div className={navbar.dropdownMenu}>
-                                        <p className={navbar.myAccountTitle}>My Account</p>
-                                        <NavLink className={navbar.dropdownItem} to="#">Your orders</NavLink>
-                                        <NavLink className={navbar.dropdownItem} to="#" onClick={signOutUser}>Sign out</NavLink>
-                                    </div>
-                            </li>}
+                            <AuthUserMenu />}
                         </ul>
                     </div>
+
+           
                 </div>
 
                 {show ? <Searchbar className={navbar.smallsearchbar} /> : ''}
             </nav>
-            {cart ? <CartContainer val={shopcart} user={authUser}/> : ''}
+            {cart ? <CartContainer val={shopcart} /> : ''}
 
         </>
     )

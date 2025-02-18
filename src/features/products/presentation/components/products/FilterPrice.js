@@ -1,7 +1,7 @@
 import React,{useState,useRef,useEffect} from 'react'
 import aside from '../../../../../assets/styles/sidemenu/FilterSection.module.css';
 import RangeSlider from '../../widgets/RangeSlider';
-import { renderProducts } from '../../../../../utils/services/reducer/filter/filter-slice';
+import { renderProducts } from '../../../../../lib/reducer/filter/filter-slice';
 import { useDispatch } from 'react-redux';
 
 

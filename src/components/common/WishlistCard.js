@@ -1,10 +1,9 @@
-import React from 'react';
 import { BiTrash } from 'react-icons/bi';
 import '../../assets/styles/product/Productcard.css';
 import '../../assets/styles/wishlist/Wishlist.css';
-import { removeWish } from '../../utils/services/reducer/wishlist/wishlist-slice';
-import { addCart,addQtyandTotalPrice } from '../../utils/services/reducer/cart/cart-slice';
-import { useDispatch,useSelector } from 'react-redux';
+import { removeWish } from '../../lib/reducer/wishlist/wishlist-slice';
+import { addCart,addQtyandTotalPrice } from '../../lib/reducer/cart/cart-slice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const WishlistCard = ({item,key}) => {

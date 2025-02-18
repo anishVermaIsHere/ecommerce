@@ -9,7 +9,7 @@ const BillSummary = () => {
     const subTotal=useSelector(state=>state.cartSlice.totalAmount).toFixed(2);
     const totalItems=useSelector(state=>state.cartSlice.products.length);
     const gst=(0.18*subTotal).toFixed(2);
-    const shipCharge=subTotal<1000?100.00 : 0.00;
+    const shipCharge=(subTotal>0 && subTotal<1000) ? 100.00 : 0.00;
     const total=(Number(subTotal)+Number(shipCharge)+Number(gst)).toFixed(2);
 
     return (

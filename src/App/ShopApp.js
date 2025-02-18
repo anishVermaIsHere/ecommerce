@@ -1,55 +1,71 @@
-import React, {useState, useEffect} from 'react';
-import '../App.css';
-import {useNavigate, useLocation } from 'react-router-dom';
-import {auth} from '../utils/services/auth/firebaseConfig';
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";  
-import Header from '../components/header/Header'
-import Container from '../container/Container';
-import Footer from '../components/footer/Footer';
+import { useEffect } from "react";
+import "../App.css";
+import { useNavigate, useLocation } from "react-router-dom";
+import { auth } from "../services/auth/firebaseConfig";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Header from "../components/header/Header";
+import Container from "../container/Container";
+import Footer from "../components/footer/Footer";
+import ROUTES from "../routes/route-links";
+import { useDispatch } from "react-redux";
+import { setUser, setAccessToken, clearToken, clearUser } from "../lib/reducer/auth/auth-slice";
+import { getAuthStorage } from "../utils/localstorage";
 
+const ShopApp = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
 
-const ShopApp=()=> {
-  const [user,setUser]=useState(null);
-  const navigate=useNavigate();
-  const location=useLocation();
-  
-  const signOutUser=()=>{
-    signOut(auth).then(() => {
-    // Sign-out successful.
-      setUser(null);
-      localStorage.removeItem('authUser');
-      navigate('/signin')
-    }).catch((error) => {
-      // An error happened.
-      alert('Signout Failed');
-    });
+  const accessToken = getAuthStorage("authToken");
+
+  const clearAuth = () => {
+    dispatch(clearToken());
+    dispatch(clearUser());
   }
-  useEffect(()=>{
+
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const currentUser=auth.currentUser;
-        console.log('current user',currentUser)
-        setUser(currentUser);
-        // ...
-        if(location.pathname=='/signin'){
-          navigate('*');
+        const {
+          currentUser: {
+            displayName,
+            email,
+            emailVerified,
+            photoURL,
+            accessToken,
+          },
+        } = auth;
+        const user = {
+          displayName,
+          email,
+          emailVerified,
+          photoURL,
+        };
+        dispatch(setUser(user));
+        dispatch(setAccessToken(accessToken));
+        if (location.pathname === ROUTES.SIGNIN) {
+          navigate("*");
         }
       } else {
-        // No user signed in 
+        // No user signed in \
+        // navigate(ROUTES.SIGNIN);
+        clearAuth();
       }
     });
-    
-  },[])
-  
+
+    if(!accessToken){
+      // navigate(ROUTES.SIGNIN);
+      clearAuth();
+    }
+  }, [accessToken]);
 
   return (
-    <div className='app-container'>
-      <Header signOutUser={signOutUser}/>
+    <div className="app-container">
+      <Header />
       <Container />
       <Footer />
     </div>
-  )
-}
-
+  );
+};
 
 export default ShopApp;
