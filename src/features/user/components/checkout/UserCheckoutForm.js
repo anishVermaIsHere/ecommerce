@@ -47,6 +47,7 @@ const UserCheckoutForm = () => {
     state: "",
     country: "",
     pin: "",
+    sameBillingAddress: false,
     acceptTerms: false,
   };
 
@@ -100,7 +101,7 @@ const UserCheckoutForm = () => {
             errors.country = "Required";
           }
           if (!values.acceptTerms) {
-            errors.acceptTerms = "Required";
+            errors.acceptTerms = "Must be checked";
           }
           if (!values.pin) {
             errors.pin = "Required";
@@ -274,6 +275,21 @@ const UserCheckoutForm = () => {
                   </div>
                 </div>
                 <div className="form-group">
+                  <div className="form-check">
+                    <Field
+                      className="form-check-input"
+                      type="checkbox"
+                      id="gridCheck"
+                      name="sameBillingAddress"
+                      checked={values.sameBillingAddress}
+                      onChange={() =>
+                        setFieldValue("sameBillingAddress", !values.sameBillingAddress)
+                      }
+                    />
+                    <label className="form-check-label" htmlFor="gridCheck">
+                      Same for billing address
+                    </label>
+                  </div>
                   <div className="form-check">
                     <Field
                       className="form-check-input"

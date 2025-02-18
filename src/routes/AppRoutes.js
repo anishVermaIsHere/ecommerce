@@ -5,7 +5,7 @@ import Loader from "../utils/widgets/Loader";
 import { getAuthStorage } from "../utils/localstorage";
 
 
-const { SIGNIN, SIGNUP, WISHLIST, CATEGORIES, CHECKOUT } = ROUTES;
+const { SIGNIN, SIGNUP, WISHLIST, CATEGORIES, CHECKOUT, PAYMENT } = ROUTES;
 
 const HomePage = lazy(() => import("../pages/HomePage"));
 const SignIn = lazy(() => import("../pages/SignIn"));
@@ -16,6 +16,7 @@ const SearchResult = lazy(() => import("../features/products/presentation/pages/
 const Protected = lazy(() => import("../features/user/components/Protected"));
 const Checkout = lazy(() => import("../features/user/pages/Checkout"));
 const ErrorPage = lazy(() => import("../components/error/ErrorPage"));
+const PaymentConfirm = lazy(()=>import("../features/user/pages/PaymentConfirm"));
 
 
 const AppRoutes = () => {
@@ -35,6 +36,7 @@ const AppRoutes = () => {
         {/* Protected Routes */}
         <Route element={<Protected auth={authUser} />}>
           <Route exact path={CHECKOUT} element={<Checkout />} />
+          <Route exact path={PAYMENT} element={<PaymentConfirm />} />
         </Route>
 
         <Route path="*" element={<ErrorPage code={404} />} />

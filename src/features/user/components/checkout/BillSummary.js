@@ -2,15 +2,16 @@ import React from 'react'
 import '../../../../assets/styles/user/Checkout.css';
 import {RiBillLine} from 'react-icons/ri';
 import {useSelector} from 'react-redux';
+import { taxCalculator } from '../../../../utils';
+
 
 
 const BillSummary = () => {
-
     const subTotal=useSelector(state=>state.cartSlice.totalAmount).toFixed(2);
     const totalItems=useSelector(state=>state.cartSlice.products.length);
-    const gst=(0.18*subTotal).toFixed(2);
-    const shipCharge=(subTotal>0 && subTotal<1000) ? 100.00 : 0.00;
-    const total=(Number(subTotal)+Number(shipCharge)+Number(gst)).toFixed(2);
+    const tax = taxCalculator(subTotal); 
+    const shipCharge=(subTotal>0 && subTotal<1000) ? 50.00 : 0.00;
+    const total=(Number(subTotal)+Number(shipCharge)+Number(tax.taxValue)).toFixed(2);
 
     return (
         <div className='col-lg-3 border-light'>
@@ -21,7 +22,7 @@ const BillSummary = () => {
                             Summary
                             <RiBillLine style={{ float: 'right', fontSize: '1.5rem' }} />
                         </h4>
-                        <p className='summary-text'>The total cost consist of the tax and shipping charge</p>
+                        <p className='summary-text'>The total cost including of tax and shipping charge</p>
                     </div>
                     <div className='summary-details'>
                         <p>Total items {totalItems} </p>
@@ -36,14 +37,14 @@ const BillSummary = () => {
                         <div className='summary-item'>
                             <p className='summary-charge'>
                                 Shipping
-                                <span className='summary-amt'>+&#8377;{shipCharge}</span>
+                                <span className='summary-amt'>+ &#8377;{shipCharge}</span>
 
                             </p>
-                        </div>
+                        </div> 
                         <div className='summary-item'>
                             <p className='summary-charge'>
-                                GST
-                                <span className='summary-amt'>+&#8377;{gst}</span>
+                                Tax ({tax.taxRate * 100}%)
+                                <span className='summary-amt'>+ &#8377;{tax.taxValue}</span>
                             </p>
                         </div>
 

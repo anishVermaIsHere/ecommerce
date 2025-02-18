@@ -29,7 +29,7 @@
   font-size: 1.8rem;
 }
 .checkout-container .customer-checkout-form form .checkout-step-wrapper .checkout-step .checkout-step-label {
-  margin-bottom: 0;
+  margin-bottom: 0.5rem;
   font-size: 1.2rem;
   font-weight: 600;
 }
@@ -71,7 +71,7 @@
 }
 .checkout-container .customer-checkout-form form .checkout-step-wrapper .checkout-step .btn-next {
   padding: 0.3rem 0.8rem !important;
-  background-color: var(--orange);
+  background-color: var(--globaldark);
   color: #fff;
 }
 .checkout-container .customer-checkout-form form .customer-form {

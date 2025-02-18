@@ -8,9 +8,21 @@
         flex-direction:row;
     }
     .img-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .card-img {
+            overflow: hidden;
+        }
         .card-img img {
-            height: 260px;
             object-fit: contain;
+            object-position: center;
+            transition: all;
+            transition-duration: 0.7s;
+            &:hover {
+                scale: 1.2;
+            }
             @media all and (max-width:575px) {
                 height:auto;
              }
@@ -22,6 +34,8 @@
     }
     .card-body { 
         width:100% !important;
+        padding: 0.5rem;
+        padding-bottom: 0.8rem;
         @media all and (max-width:575px) {
             margin-top:0 !important;
         }
@@ -35,7 +49,7 @@
             cursor:pointer;
         }
         .card-text {
-            font-size:0.8rem;
+            // font-size:0.8rem;
         }
         .rating-section {
             margin:-0.8rem 0 1rem;

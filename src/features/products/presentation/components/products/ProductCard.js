@@ -69,8 +69,8 @@ const ProductCard = ({ item }) => {
             <div className="card-body">
                 <p className="card-title" title={item.title}>{item.title}</p>
                 <p className="card-text font-weight-bold">
-                    <span className='mr-2'>&#8377;{item.price}</span>
-                    <del className='text-danger' style={{textDecoration:'line-through'}}>&#8377;{item.prevprice}</del>
+                    <span className='fs-2 mr-2'>&#8377;{item.price}</span>
+                    {item.prevprice > 0 ? <del className='text-danger' style={{textDecoration:'line-through'}}>&#8377;{item.prevprice}</del> : ''}
                     {item.sizes&&<select className='ml-3' onChange={(e)=>selectSize(e,item.id)}>
                     {selectedSize.map((size)=><option value={size.value} key={nanoid()} selected={size.selected}>{size.label}</option>)}
                     </select>}

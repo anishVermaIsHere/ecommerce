@@ -79,7 +79,7 @@ const Footer = () => {
             {AppConfig.appName}. 
           </span>
           <br />
-          Designed and Developed by Anish Verma
+          Designed and Developed by {AppConfig.dev.name}
         </p>
       </div>
       {/*  Copyright  */}

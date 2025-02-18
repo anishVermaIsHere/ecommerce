@@ -7,6 +7,8 @@ const ROUTES = {
   SIGNUP: "/signup",
   WISHLIST: "/wishlist",
   CHECKOUT: "/checkout",
+  ORDER_PLACE: "/order-payment",
+  PAYMENT: "/payment-confirm",
   GROCERIES: "products/groceries",
   PACKFOODS: "products/packaged foods",
   BEVERAGES: "products/beverages",
