@@ -36,3 +36,29 @@ export const signInSchema = yup.object({
     .min(8, "Password should be of minimum 8 characters")
     .required("Password is required"),
 });
+
+
+export const checkoutSchema = yup.object({
+  shipping: yup.object({
+    name: yup.string().required("Name required"),
+    phone: yup.string().required("Phone required").matches(/^\+?[1-9]\d{1,14}$/, "Invalid Phone format"),
+    house: yup.string().required("House no. required "),
+    area: yup.string().required("Area required"),
+    city: yup.string().required("City required"),
+    state: yup.string().required("State required"),
+    country: yup.string().required("Country required"),
+    pin: yup.string().required("Pin required"),
+  }),
+  billing: yup.object({
+    name: yup.string().required("Name required"),
+    phone: yup.string().required("Phone required").matches(/^\+?[1-9]\d{1,14}$/, "Invalid Phone format"),
+    house: yup.string().required("House no. required "),
+    area: yup.string().required("Area required"),
+    city: yup.string().required("City required"),
+    state: yup.string().required("State required"),
+    country: yup.string().required("Country required"),
+    pin: yup.string().required("Pin required"),
+  }),
+  sameBillingAddress: yup.boolean(),
+  acceptTerms: yup.boolean().oneOf([true], "Must accept terms and conditions"),
+});

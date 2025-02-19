@@ -1,12 +1,10 @@
-# eStore - An Ecommerce Application
-# This is a Frontend Shopping Application built with using ReactJS & Bootstrap
+![alt text](image.png)
 
-The App Link is 
+# Shop Grow - An Ecommerce Shopping App
+## This is a Frontend Shopping App built with using ReactJS & Bootstrap
 
-**Link:1** https://ecomm-store-22.web.app 
-
-**Link:2** https://anishvermaishere.github.io/ecomm-live/
-
+[**Link:1**](https://ecomm-store-22.web.app) 
+[**Link:2**](https://anishvermaishere.github.io/ecomm-live/)
 
 
 
@@ -22,7 +20,7 @@ The App Link is
 
 5. Search products page
 
-6. Checkout page
+6. Checkout page includes (Order summary, Shipping & Billing address)
 
 7. Authentication with Google OAuth
 

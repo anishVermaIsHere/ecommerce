@@ -1,17 +1,33 @@
-import React from 'react'
+import { useEffect } from 'react'
 import '../../../../assets/styles/user/Checkout.css';
 import {RiBillLine} from 'react-icons/ri';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { taxCalculator } from '../../../../utils';
+import { setSummary } from '../../../../lib/reducer/order/order-slice';
 
 
 
 const BillSummary = () => {
+    const dispatch = useDispatch();
     const subTotal=useSelector(state=>state.cartSlice.totalAmount).toFixed(2);
-    const totalItems=useSelector(state=>state.cartSlice.products.length);
+    const orderedItems=useSelector(state=>state.cartSlice.products);
     const tax = taxCalculator(subTotal); 
     const shipCharge=(subTotal>0 && subTotal<1000) ? 50.00 : 0.00;
     const total=(Number(subTotal)+Number(shipCharge)+Number(tax.taxValue)).toFixed(2);
+
+    useEffect(()=>{
+        const orderSummary = {
+            orderedItems,
+            subTotal,
+            totalItems: orderedItems.length,
+            taxValue: tax.taxValue,
+            taxRate: tax.taxRate,
+            grandTotal: total,
+            promoApplied: ""
+        };
+        dispatch(setSummary(orderSummary));
+    }, []);
+
 
     return (
         <div className='col-lg-3 border-light'>
@@ -25,7 +41,7 @@ const BillSummary = () => {
                         <p className='summary-text'>The total cost including of tax and shipping charge</p>
                     </div>
                     <div className='summary-details'>
-                        <p>Total items {totalItems} </p>
+                        <p>Total items {orderedItems?.length} </p>
                         <div className='summary-item'>
                             <p className='sub-total'>
                                 <strong>

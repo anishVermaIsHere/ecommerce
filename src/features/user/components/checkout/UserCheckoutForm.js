@@ -1,274 +1,228 @@
 import { useEffect, useState } from "react";
-import {
-  Formik,
-  Form,
-  Field,
-  ErrorMessage,
-  useFormikContext,
-} from "formik";
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import "react-phone-number-input/style.css";
 import "../../../../assets/styles/user/Checkout.css";
 import { shopForm } from "../../../../utils/constants/constant-data";
 import { Country, State, City } from "country-state-city";
+import { checkoutSchema } from "../../../../utils/validation/schema";
+import { useDispatch } from "react-redux";
+import { setBillingAddress, setShippingAddress } from "../../../../lib/reducer/order/order-slice";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../../../routes/route-links";
 
 
 
 
-const WatchFormValues = ({ handleCountry, handleStates }) => {
-  const { values } = useFormikContext();
-
+const WatchFormValues = () => {
+  const { values: { shipping, sameBillingAddress }, setFieldValue } = useFormikContext();
   useEffect(() => {
-    if (values.country) {
-      handleCountry(values.country);
+    if (sameBillingAddress) {
+      setFieldValue("billing.name", shipping.name);
+      setFieldValue("billing.phone", shipping.phone);
+      setFieldValue("billing.house", shipping.house);
+      setFieldValue("billing.area", shipping.area);
+      setFieldValue("billing.city", shipping.city);
+      setFieldValue("billing.state", shipping.state);
+      setFieldValue("billing.country", shipping.country);
+      setFieldValue("billing.pin", shipping.pin);
     }
-    if (values.state) {
-      handleStates(values.state);
-    }
-  }, [values.country, values.state]);
+  }, [sameBillingAddress]);
 
   return null; // This component does not render anything
 };
 
 const UserCheckoutForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { delivery, placeholder } = shopForm;
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
-
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-
+  const countries = Country?.getAllCountries();
   const formField = {
-    name: "",
-    phone: "",
-    house: "",
-    area: "",
-    city: "",
-    state: "",
-    country: "",
-    pin: "",
+    shipping: {
+      name: "",
+      phone: "",
+      house: "",
+      area: "",
+      city: "",
+      state: "",
+      country: "",
+      pin: "",
+    },
+    billing: {
+      name: "",
+      phone: "",
+      house: "",
+      area: "",
+      city: "",
+      state: "",
+      country: "",
+      pin: "",
+    },
     sameBillingAddress: false,
     acceptTerms: false,
-  };
-
-  const handleCountry = (countryCode) => {
-    setSelectedCountry(countryCode);
-    setStates(State.getStatesOfCountry(countryCode)); // Corrected method to get states
-    setSelectedState(""); // Reset state and city
-    setCities([]);
-  };
-
-  const handleStates = (stateCode) => {
-    setSelectedState(stateCode);
-    setCities(City.getCitiesOfState(selectedCountry, stateCode));
-    setSelectedCity(""); // Reset city
   };
 
   return (
     <div className="col-lg-6 border-light customer-checkout-form">
       <Formik
         initialValues={formField}
-        validate={(values) => {
-          const errors = {};
-          // Validation logic
-          if (!values.name) {
-            errors.name = "Required";
-          } else if (!/^[a-zA-Z\s]{2,20}$/.test(values.name)) {
-            errors.name = "Invalid name";
-          }
-          if (!values.phone) {
-            errors.phone = "Required";
-          } else if (!/^[6-9]{1}[0-9]{9}$/.test(values.phone)) {
-            errors.phone = "Invalid phone";
-          }
-          if (!values.house) {
-            errors.house = "Required";
-          } else if (!/^[A-Za-z0-9\s\-]{3,20}$/.test(values.house)) {
-            errors.house = "Invalid house/flat no.";
-          }
-          if (!values.area) {
-            errors.area = "Required";
-          } else if (!/^[A-Za-z0-9\s\-]{3,20}$/.test(values.area)) {
-            errors.area = "Invalid area";
-          }
-          if (!values.city) {
-            errors.city = "Required";
-          }
-          if (!values.state) {
-            errors.state = "Required";
-          }
-          if (!values.country) {
-            errors.country = "Required";
-          }
-          if (!values.acceptTerms) {
-            errors.acceptTerms = "Must be checked";
-          }
-          if (!values.pin) {
-            errors.pin = "Required";
-          } else if (!/^\d{6,10}$/.test(values.pin)) {
-            errors.pin = "Invalid pincode";
-          }
-          return errors;
-        }}
+        validationSchema={checkoutSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            dispatch(setShippingAddress(values.shipping));
+            dispatch(setBillingAddress(values.billing));
+            navigate(ROUTES.PAYMENT);
             setSubmitting(false);
           }, 400);
         }}
       >
         {({ isSubmitting, values, setFieldValue }) => (
           <Form>
+            <WatchFormValues />
             <div className="checkout-step-wrapper d-flex-ai-center">
               <div className="checkout-step">
-                <h4 className="checkout-step-label">Delivery Address</h4>
-                <WatchFormValues
-                  handleCountry={handleCountry}
-                  handleStates={handleStates}
-                />
+                <h4 className="checkout-step-label">Shipping Address</h4>
+
                 <div className="form-row">
                   <div className="form-group col-md-6">
-                    <label htmlFor="inputName">{delivery.name}</label>
+                    <label htmlFor="inputShippingName">{delivery.name}</label>
                     <Field
                       type="text"
-                      name="name"
+                      name="shipping.name"
                       className="form-control"
-                      id="inputName"
+                      id="inputShippingName"
                       placeholder={placeholder.name}
                     />
                     <ErrorMessage
-                      name="name"
+                      name="shipping.name"
                       component="div"
                       className="errorMessage"
                     />
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="inputPhone">{delivery.phone}</label>
+                    <label htmlFor="inputShippingPhone">{delivery.phone}</label>
                     <Field
                       type="tel"
-                      name="phone"
+                      name="shipping.phone"
                       className="form-control"
-                      id="inputPhone"
+                      id="inputShippingPhone"
                       placeholder={placeholder.phone}
                     />
                     <ErrorMessage
-                      name="phone"
+                      name="shipping.phone"
                       component="div"
                       className="errorMessage"
                     />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="inputAddress">{delivery.house}</label>
+                  <label htmlFor="inputShippingAddress">{delivery.house}</label>
                   <Field
                     type="text"
-                    name="house"
+                    name="shipping.house"
                     className="form-control"
-                    id="inputAddress"
+                    id="inputShippingAddress"
                     placeholder={placeholder.house}
                   />
                   <ErrorMessage
-                    name="house"
+                    name="shipping.house"
                     component="div"
                     className="errorMessage"
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="inputAddress2">{delivery.area}</label>
+                  <label htmlFor="inputShippingArea">{delivery.area}</label>
                   <Field
                     type="text"
-                    name="area"
+                    name="shipping.area"
                     className="form-control"
-                    id="inputAddress2"
+                    id="inputShippingArea"
                     placeholder={placeholder.area}
                   />
                   <ErrorMessage
-                    name="area"
+                    name="shipping.area"
                     component="div"
                     className="errorMessage"
                   />
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md-6">
-                    <label htmlFor="inputCountry">{delivery.country}</label>
+                    <label htmlFor="inputShippingCountry">
+                      {delivery.country}
+                    </label>
                     <Field
                       as="select"
-                      name="country"
-                      id="inputCountry"
+                      name="shipping.country"
+                      id="inputShippingCountry"
                       className="form-control"
-                      //   onChange={handleCountry}
-                      //   value={selectedCountry}
                     >
                       <option value="">Select...</option>
-                      {Country.getAllCountries().map((cnt) => (
+                      {countries.map((cnt) => (
                         <option key={cnt.isoCode} value={cnt.isoCode}>
-                          {cnt.name}
+                          {cnt.name} ({cnt.isoCode})
                         </option>
                       ))}
                     </Field>
                     <ErrorMessage
-                      name="country"
+                      name="shipping.country"
                       component="div"
                       className="errorMessage"
                     />
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="inputState">{delivery.state}</label>
+                    <label htmlFor="inputShippingState">{delivery.state}</label>
                     <Field
                       as="select"
-                      name="state"
-                      id="inputState"
+                      name="shipping.state"
+                      id="inputShippingState"
                       className="form-control"
-                      //   onChange={handleStates}
-                      //   value={selectedState}
-                      disabled={!selectedCountry}
+                      disabled={!values.shipping.country}
                     >
-                      <option value="">Select...</option>
-                      {states.map((state) => (
+                        <option value="">Select...</option>
+                      {State.getStatesOfCountry(values.shipping.country).map((state) => (
                         <option key={state.isoCode} value={state.isoCode}>
-                          {state.name}
+                          {state.name} ({state.isoCode})
                         </option>
                       ))}
                     </Field>
                     <ErrorMessage
-                      name="state"
+                      name="shipping.state"
                       component="div"
                       className="errorMessage"
                     />
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="inputCity">{delivery.city}</label>
+                    <label htmlFor="inputShippingCity">{delivery.city}</label>
                     <Field
                       as="select"
-                      name="city"
+                      name="shipping.city"
                       className="form-control"
-                      id="inputCity"
-                      disabled={!selectedState}
+                      id="inputShippingCity"
+                      disabled={!values.shipping.state}
                     >
-                      <option value="">Select...</option>
-                      {cities.map((city) => (
+                       <option value="">Select...</option>
+                      {City.getCitiesOfState(values.shipping.country, values.shipping.state).map((city) => (
                         <option key={city.name} value={city.name}>
                           {city.name}
                         </option>
                       ))}
                     </Field>
                     <ErrorMessage
-                      name="city"
+                      name="shipping.city"
                       component="div"
                       className="errorMessage"
                     />
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="inputZip">{delivery.pin}</label>
+                    <label htmlFor="inputShippingZip">{delivery.pin}</label>
                     <Field
                       type="number"
-                      name="pin"
+                      name="shipping.pin"
                       className="form-control"
-                      id="inputZip"
+                      id="inputShippingZip"
                       placeholder={placeholder.pin}
                     />
                     <ErrorMessage
-                      name="pin"
+                      name="shipping.pin"
                       component="div"
                       className="errorMessage"
                     />
@@ -283,25 +237,191 @@ const UserCheckoutForm = () => {
                       name="sameBillingAddress"
                       checked={values.sameBillingAddress}
                       onChange={() =>
-                        setFieldValue("sameBillingAddress", !values.sameBillingAddress)
+                        setFieldValue(
+                          "sameBillingAddress",
+                          !values.sameBillingAddress
+                        )
                       }
                     />
                     <label className="form-check-label" htmlFor="gridCheck">
                       Same for billing address
                     </label>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="checkout-step-wrapper d-flex-ai-center">
+              <div className="checkout-step">
+                <h4 className="checkout-step-label">Billing Address</h4>
+                <div className="form-row">
+                  <div className="form-group col-md-6">
+                    <label htmlFor="inputBillingName">{delivery.name}</label>
+                    <Field
+                      type="text"
+                      name="billing.name"
+                      className="form-control"
+                      id="inputBillingName"
+                      placeholder={placeholder.name}
+                      disabled={values.sameBillingAddress}
+                    />
+                    <ErrorMessage
+                      name="billing.name"
+                      component="div"
+                      className="errorMessage"
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="inputBillingPhone">{delivery.phone}</label>
+                    <Field
+                      type="tel"
+                      name="billing.phone"
+                      className="form-control"
+                      id="inputBillingPhone"
+                      placeholder={placeholder.phone}
+                      disabled={values.sameBillingAddress}
+                    />
+                    <ErrorMessage
+                      name="billing.phone"
+                      component="div"
+                      className="errorMessage"
+                    />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="inputBillingAddress">{delivery.house}</label>
+                  <Field
+                    type="text"
+                    name="billing.house"
+                    className="form-control"
+                    id="inputBillingAddress"
+                    placeholder={placeholder.house}
+                    disabled={values.sameBillingAddress}
+                  />
+                  <ErrorMessage
+                    name="billing.house"
+                    component="div"
+                    className="errorMessage"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="inputBillingArea">{delivery.area}</label>
+                  <Field
+                    type="text"
+                    name="billing.area"
+                    className="form-control"
+                    id="inputBillingArea"
+                    placeholder={placeholder.area}
+                    disabled={values.sameBillingAddress}
+                  />
+                  <ErrorMessage
+                    name="billing.area"
+                    component="div"
+                    className="errorMessage"
+                  />
+                </div>
+                <div className="form-row">
+                  <div className="form-group col-md-6">
+                    <label htmlFor="inputBillingCountry">
+                      {delivery.country}
+                    </label>
+                    <Field
+                      as="select"
+                      name="billing.country"
+                      id="inputBillingCountry"
+                      className="form-control"
+                      disabled={values.sameBillingAddress}
+                    >
+                      <option value="">Select...</option>
+                      {countries.map((cnt) => (
+                        <option key={cnt.isoCode} value={cnt.isoCode}>
+                          {cnt.name} ({cnt.isoCode})
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="billing.country"
+                      component="div"
+                      className="errorMessage"
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="inputBillingState">{delivery.state}</label>
+                    <Field
+                      as="select"
+                      name="billing.state"
+                      id="inputBillingState"
+                      className="form-control"
+                      disabled={!values.billing.country || values.sameBillingAddress}
+                    >
+                      <option value="">Select...</option>
+                      {State.getStatesOfCountry(values.billing.country).map((state) => (
+                        <option key={state.isoCode} value={state.isoCode}>
+                          {state.name} ({state.isoCode})
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="billing.state"
+                      component="div"
+                      className="errorMessage"
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="inputBillingCity">{delivery.city}</label>
+                    <Field
+                      as="select"
+                      name="billing.city"
+                      className="form-control"
+                      id="inputBillingCity"
+                      disabled={!values.billing.state || values.sameBillingAddress}
+                    >
+                      <option value="">Select...</option>
+                      {City.getCitiesOfState(values.billing.country, values.billing.state).map((city) => (
+                        <option key={city.name} value={city.name}>
+                          {city.name}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="billing.city"
+                      component="div"
+                      className="errorMessage"
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="inputBillingZip">{delivery.pin}</label>
+                    <Field
+                      type="number"
+                      name="billing.pin"
+                      className="form-control"
+                      id="inputBillingZip"
+                      placeholder={placeholder.pin}
+                      disabled={values.sameBillingAddress}
+                    />
+                    <ErrorMessage
+                      name="billing.pin"
+                      component="div"
+                      className="errorMessage"
+                    />
+                  </div>
+                </div>
+                <div className="form-group">
                   <div className="form-check">
                     <Field
                       className="form-check-input"
                       type="checkbox"
-                      id="gridCheck"
+                      id="gridCheckAcceptTerms"
                       name="acceptTerms"
                       checked={values.acceptTerms}
                       onChange={() =>
                         setFieldValue("acceptTerms", !values.acceptTerms)
                       }
                     />
-                    <label className="form-check-label" htmlFor="gridCheck">
+                    <label
+                      className="form-check-label"
+                      htmlFor="gridCheckAcceptTerms"
+                    >
                       I accept and confirm the above details
                     </label>
                     <ErrorMessage
@@ -311,14 +431,16 @@ const UserCheckoutForm = () => {
                     />
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  className="btn btn-next"
-                  disabled={isSubmitting}
-                >
-                  Save & Next
-                </button>
               </div>
+            </div>
+            <div className="checkout-action-group">
+              <button
+                type="submit"
+                className="btn btn-next"
+                disabled={isSubmitting}
+              >
+                Save & Next
+              </button>
             </div>
           </Form>
         )}

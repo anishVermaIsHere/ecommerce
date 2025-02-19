@@ -69,7 +69,10 @@
 .checkout-container .customer-checkout-form form .checkout-step-wrapper .checkout-step .form-group .form-check .form-check-label {
   font-size: 0.8rem !important;
 }
-.checkout-container .customer-checkout-form form .checkout-step-wrapper .checkout-step .btn-next {
+.checkout-container .customer-checkout-form form .checkout-action-group {
+  padding: 0.8rem;
+}
+.checkout-container .customer-checkout-form form .checkout-action-group .btn-next {
   padding: 0.3rem 0.8rem !important;
   background-color: var(--globaldark);
   color: #fff;
