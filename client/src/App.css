@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    list-style-type: none;
+}
+::selection{
+  background-color: #a4dad3;
+}
+
+:root {
+  --fontpri:'Inter', sans-serif;
+  --danger:#DC3545;
+  --alert:#ff6666;
+  --green:rgb(25, 138, 85);
+  --orange:#f1a532;
+  --dark:#18181b;
+  --blur:rgba(0,0,0,.6);
+  --fadedark:#747475;
+  --globaldark:rgb(59, 59, 59);
+  --fadelight:#f2f2f2;
+  --fadegrey:#e0e0e0;
+  --darkgrey:#757575;
+  --navgreenlgt:#75afa8;
+  --navgreendrk:#076c60;
+  --darkgreen:#25554f;
+  --lqdgreen:#f1f8f7;
+}
+
+body {
+  background-color:#fff;
+}
+
+.app-container {
+  font-family: var(--fontpri);
+  color:var(--fdark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+h2 {
+  font-size: 2.5rem;
+}
+h3 {
+  font-size:1.5rem;
+}
+h5 {
+  font-size:1rem;
+}
+h1,h2,h3,h4,h5,h6 {
+color:rgb(83, 83, 83);
+}
+img {
+  user-select: none;
+  width:100%;
+  color:var(--fadedark);
+}
+button{
+  user-select: none;
+  outline:none !important;
+}
+.form-control:focus,
+input[type='text']:focus,
+input[type='number']:focus,
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='tel']:focus {
+  box-shadow:0 0 0 .2rem #a9dbd5 !important;
+  border:1px solid var(--navgreenlgt) !important;
+}
+.disabled {
+  pointer-events:none;
+  opacity:0.4;
+}
+.cart,.signin {
+  font-size:1.4rem;
+}
+
+.wishlist {
+  font-size:1.4rem;
+  padding-top:0.23rem;
+}
+a{
+  text-decoration: none !important;
+}
+
+a:hover {
+  color:var(--fadelight);
+  text-decoration: none;
+  cursor:pointer;
+}
+ul {
+margin-bottom:0 !important;
+}
+
+li:hover,button:hover {
+  cursor: pointer;
+}
+.text-danger {
+  color:yellow;
+}
+.mdError {
+  font-size:1rem;
+}
+
+.bg-grndrk {
+  background-color: var(--navgreendrk) !important;
+  color:#fff !important;
+}
+.border-light {
+  border: 1px solid var(--fadegrey) !important;
+}
+.d-flex-jc-center-ai-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.d-flex-ai-center {
+  display: flex;
+  align-items: center;
+}
+
+.page-item .page-link{
+  color:var(--darkgrey);
+  border:1px solid var(--darkgrey);
+}
+.page-item.active .page-link {
+  background: var(--dark);
+  border: var(--dark);
+}
+.pagination-sm .page-link {
+  padding:0.4rem 0.8rem;
+}
+
+.copyright-text {
+  font-size: 0.7rem;
+}

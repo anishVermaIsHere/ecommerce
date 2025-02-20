@@ -1,0 +1,16 @@
+
+.socialMenu {
+    padding:1rem 0.5rem;
+    margin-bottom: 0 !important;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    align-items: center;
+}
+.socialMenuList {
+    color:var(--navgreendrk);
+}
+.socialMenuList .socialLink {
+    font-size:1.2rem;
+    color:var(--navgreendrk);
+}

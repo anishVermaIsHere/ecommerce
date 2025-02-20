@@ -1,0 +1,110 @@
+* {
+    list-style-type: none;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+.drawerBackground {
+    display:block;
+    position:fixed;
+    z-index:100;
+    top:0;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:var(--blur);
+    transition: all 0.5s ease-in-out;
+}
+.active {
+    left:-100%;
+}
+.drawer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0px;
+    width:300px;
+    border-left: 1px solid #e1e1e1;
+    box-shadow: -3px 0 0 0 rgb(0 0 0 / 5%);
+    background-image: linear-gradient(to right,#ffffff, #f2f2f2);
+}
+
+.overflow ::-webkit-scrollbar {
+    width:30px;
+}
+.overflow ::-webkit-scrollbar-track {
+    border-radius: 5rem;
+    margin-block: 1rem;
+}
+.overflow ::-webkit-scrollbar-thumb {
+    border-radius: 5rem;
+    background-color: #292d35;
+}
+.accordion {
+    display: block;
+    margin-top:2rem;
+    padding: 0.1rem;
+}
+.accordionMenu {
+    font-size:14px;
+    padding:0;
+    margin-bottom: 30px;
+}
+.accordionList {
+    position: relative;
+}
+.accordionList .accordionLink,
+.accordionList .accordionItem {
+    display: block;
+    width:100%;
+    padding:0.5rem 0.8rem;
+    font-size: 1rem;
+    border-bottom:1px solid #e1e1e1;
+    color:var(--navgreendrk);
+} 
+.accordionLink:hover .arrow {
+    color:var(--fadelight);
+}
+.accordionLink:hover,
+.accordionSubMenu .accordionSubMenuList .subMenuLink:hover {
+    color:var(--fadelight);
+    background-color:var(--navgreendrk);
+}
+
+.arrow {
+    font-size:1.5rem;
+    float:right;
+    color:var(--navgreendrk);
+}
+.arrow:hover {
+    color:var(--fadelight);
+}
+
+.accordionSubMenu .accordionSubMenuList .subMenuLink {
+    color:var(--navgreendrk);
+    display: inline-block;
+    width:100%;
+    padding:0.5rem 1.3rem;
+}
+.accordionSubMenu .accordionSubMenuList:not(:last-child) {
+    border-bottom: 1px solid var(--fadelight);
+}
+.drawerClose {
+    position:absolute;
+    top:0;
+    right:0;
+    color:var(--navgreendrk);
+}
+.hamburgerMenuClose {
+    font-size:2rem;
+    color:var(--wh);
+    cursor:pointer;
+}
+
+.linkIcon {
+    font-size:1.2rem;
+    margin-right:0.5rem;
+}
