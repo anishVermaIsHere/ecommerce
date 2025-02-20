@@ -24,6 +24,10 @@
 
 7. Authentication with Google OAuth
 
+8. Payment integration with Stripe
+
+
+# [See video](https://www.loom.com/share/3dc427d5e5494c28a8756edb0093ba3d?sid=3a730c0f-0f3a-4ad4-be58-11f6d0516957)
 
 
 **Before run this application you have to install the NodeJS**
@@ -58,7 +62,6 @@ npm install
 REACT_APP_BASEURL=https://anish-mockapi.onrender.com/
 PUBLIC_URL=https://anishvermaishere.github.io/ecomm-live/
 STRIPE_PAYMENT_KEY=stripe_api_key
-STRIPE_SECRET_KEY=stripe_secret_key
 
 ```
 ** and save it.

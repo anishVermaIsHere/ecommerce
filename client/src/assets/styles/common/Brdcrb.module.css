@@ -1,0 +1,22 @@
+
+.brdcrmb {
+    background: none !important;
+}
+.navigator ol {
+    position: relative;
+    margin:0;
+    padding:0.3rem 1rem !important;
+    font:400 var(--fontsec);
+}
+.navigator ol li a:visited,
+.navigator  ol li a:link {   
+    font-size: 0.8rem;
+    font-weight: bold;
+    color:var(--fdark);
+    text-decoration: none;
+}
+
+
+.active {
+    color:var(--navgreendrk);
+}
